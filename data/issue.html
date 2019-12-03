@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel = "icon" href = "images/icon.png">
+  <link rel = "stylesheet" href="Css/styles.css">
+  <title>WHAP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<script src="js/scripts.js"></script>
+<script src="js/helpers.js"></script>
+
+<body onload = "setUp()" background = "images/Background.jpg">
+
+
+<div id="centerheader">
+  <div id="showName"></div>
+</div>
+
+<div id="logo">
+  <img src="images/logo.png" width=100 height=100>
+</div>
+<div class="tab">
+  <button class = "tablinks" onclick="openTab(event, 'create'), clearText()">Create Issue</button>
+  <button class = "tablinks" onclick="openTab(event, 'issues'), clearText()">Search Issues</button>
+  <button class = "tablinks" onclick="openTab(event, 'allIssues'), clearText(), showAllIssues()">All Issues</button>
+  <button class = "tablinks" onclick="openTab(event, 'allUsers'), clearText(), showAllUsers()">All Users</button>
+</div>
+
+<div id="create" class="tabcontent">
+  <form>
+    <div><br><br><br>
+      <label for="title">Title:</label>
+      <input type="text" id = "title" title="issueTitle" placeholder="Issue Title">
+    </div>
+    <div>
+      <label for = "description">Description:</label>
+      <textarea rows = "5" cols = "50" id = "msg" name="issueDescription"
+      placeholder = "Description of Issue"></textarea>
+    </div>
+    <div>
+      <label for = "priority">Priority:</label>
+      <select name = "priority" id = "priority" required>
+        <option value = "Low">Low</option>
+        <option value = "Medium">Medium</option>
+        <option value = "High">High</option>
+        <option value = "Very High">Very High</option>
+        <option value = "World Ending">World Ending</option>
+      </select>
+    </div>
+    <div>
+      <label for = "OS">OS:</label>
+      <select name = "OS" id = "OS" required>
+        <option value = "Windows">Windows</option>
+        <option value = "Linux">Linux</option>
+        <option value = "Mac">Mac</option>
+      </select>
+    </div>
+    <div>
+      <label for = "component">Component:</label>
+      <input type = "text" id ="component" component = "component"
+      placeholder = "component">
+    </div>
+    <div>
+      <label for = "assignee">Assignee:</label>
+      <select name = "assignee" id = "assignee" required>
+      </select>
+    </div>
+    <div class = "button">
+      <button onclick="sendToServer()">Submit</button>
+    </div>
+  </form>
+</div>
+
+<div id="issues" class="tabcontent">
+  <fieldset>
+    <div>
+      <label for="search">Search:</label>
+      <input type="text" id = "search" title="searchIssue" placeholder="Issue Title">
+    </div>
+    <div class = "button">
+      <button onclick="searchByTitle(), clearText()">Search By Title</button>
+    </div>
+    <div class = "button">
+      <button onclick="searchByID(), clearText()">Search by ID</button>
+    </div>
+  </fieldset>
+</div>
+
+<div id="allIssues" class="tabcontent">
+</div>
+
+<div id="allUsers" class="tabcontent">
+</div>
+
+</body>
+</html>
