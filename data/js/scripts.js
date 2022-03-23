@@ -53,16 +53,20 @@ function getNames(){
 // Player is which Player
 // 0 == left 1 == right
 function targetClick(player, value) {
+  let tot = parseInt(document.getElementById(player.concat("tot")).innerHTML);
   // Checks if the undo button was pressed
   if (value == "undo") {
     // If it was looks from the end for a number
     // Then turns that number into a "-"
     for (let i = 5; i >= 0; i--)
       if (document.getElementById(player.concat("axe", i)).innerHTML != "-") {
+        tot -= parseInt(document.getElementById(player.concat("axe", i)).innerHTML);
         document.getElementById(player.concat("axe", i)).innerHTML = "-";
         i = -1;
       }
   } else {
+    // Upadtes the total
+    tot += value;
   // Finds the first "-" <p> and changes
   // it to value input
     for (let i = 1; i <= 5; i++)
@@ -72,9 +76,11 @@ function targetClick(player, value) {
       }
     }
 
+    document.getElementById(player.concat("tot")).innerHTML = tot;
+
     let flag = true;
 
-  // TODO: heck to see if game is done
+  /* TODO: check to see if game is done
   for (let i = 0; i < 2; i++) {
     for (let j = 0; j < 6; j++) {
       if (document.getElementById("p".concat(i, "axe", j)).innerHTML == "-") {
@@ -83,7 +89,7 @@ function targetClick(player, value) {
         flag = false;
       }
     }
-  }
+  }*/
 
   // TODO: do next roudn bull shit
 }
