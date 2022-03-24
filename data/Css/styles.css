@@ -73,7 +73,7 @@ button {
 
 body {
   background:
-    url(../images/Background.jpg)
+    /*url(../images/Background.jpg)*/
     no-repeat;
   background-size: cover;
 }
