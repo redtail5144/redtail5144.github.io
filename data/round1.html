@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel = "stylesheet" href="Css/styles.css">
+  <title>Axe Trax</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<script src = "js/round1.js"></script>
+
+<style>
+p, #after {
+  text-align: center;
+  vertical-align: middle;
+}
+</style>
+
+<body>
+
+  <div class="footer" id = "buttons">
+      <div class="buttonsRow">
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "undoLast()">Undo</button>
+          </div>
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "add(0)">0</button>
+          </div>
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "add(1)">1</button>
+          </div>
+      </div>
+      <div class="buttonsRow">
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "add(3)">3</button>
+          </div>
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "add(5)">5</button>
+          </div>
+          <div class="button-wrapper" style="width: 33.3%">
+              <button onclick = "add(7)">7</button>
+          </div>
+      </div>
+    </div>
+
+  <p id = "message">Daily Reminder to go Fuck Yourself :^)</p>
+  <div id = "after">
+    <h1 id = "statsMess"></h1>
+  </div>
+
+
+</body>
+
+</html>

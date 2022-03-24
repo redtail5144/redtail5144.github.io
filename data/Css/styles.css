@@ -15,11 +15,6 @@
   text-align: center;
 }
 
-.button {
-  width: 100%;
-  height: 100%;
-}
-
 .bullBut {
   background-color: black;
   color: white;
@@ -48,4 +43,29 @@
 .undoBut {
   background-color: purple;
   color: white;
+}
+
+.footer {
+    width: 100%;
+    height: 75px;
+    background-color: #66CCFF;
+    margin: 0;
+    padding: 0;
+}
+.buttonsRow {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.button-wrapper {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    float:left;
+}
+button {
+    height: 33px;
+    width: 100%;
+    margin: 2px;
 }
