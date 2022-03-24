@@ -22,6 +22,8 @@ var blueVal = 1;
 var missVal = 0;
 // Total amount of throws
 var games = 5;
+// Number of throws
+var throws = 0;
 
 // Clears history and stats
 function reset() {
@@ -75,9 +77,10 @@ function inc(val) {
       break;
   }
 
-  document.getElementById("message").innerHTML = "You threw a " + val;
+  throws++;
+  document.getElementById("throwNum").innerHTML = "Throw " + throws + "/75";
+  document.getElementById("score").innerHTML = "You threw a " + val;
 
-  console.log(stats);
   checkDone();
 }
 
@@ -101,12 +104,13 @@ function dec(val) {
       break;
   }
 
-    document.getElementById("message").innerHTML = "Undid " + val;
-    console.log(stats);
+  throws--;
+  document.getElementById("throwNum").innerHTML = "Throw " + throws + "/75";
+  document.getElementById("score").innerHTML = "Undid " + val;
 
-    // If any stats are below 0, sets them to zero
-    for (let i = 0; i < stats.length; i++)
-      if (stats[i] < 0) stats[i] = 0;
+  // If any stats are below 0, sets them to zero
+  for (let i = 0; i < stats.length; i++)
+    if (stats[i] < 0) stats[i] = 0;
 }
 
 function checkDone() {
