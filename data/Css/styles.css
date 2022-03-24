@@ -64,8 +64,16 @@
     padding: 0;
     float:left;
 }
+
 button {
     height: 33px;
     width: 100%;
     margin: 2px;
+}
+
+body {
+  background:
+    url(../images/Background.jpg)
+    no-repeat;
+  background-size: cover;
 }
