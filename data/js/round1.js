@@ -37,14 +37,6 @@ var bigThrows = 0;
 // Flag for scoring bigaxe
 var big = false;
 
-// Clears history and stats
-function reset() {
-  stats = [0,0,0,0,0];
-  bigStats = [0,0,0,0,0];
-  history = new array();
-  bigHistory = new array();
-}
-
 // Finds the average of all throws
 function getAvg() {
   let score = 0;
@@ -190,14 +182,9 @@ function dec(val) {
 // 75 Hatchet throws or 15 Big Axe throws
 function checkDone() {
   if (!big) {
-    // Checks if 75 hatchet throws are done
-    let tot = 0;
-    for (let i = 0; i < stats.length; i++)
-      tot += stats[i];
-
     // If 75 throws have been made
     // Prompt user to throw big axe
-    if (tot == 75) {
+    if (throws == 75) {
       // If yes enable big axe mode
       if (confirm("Throw Big Axe?")) {
         big = true;
@@ -209,6 +196,7 @@ function checkDone() {
   // If 15 Big Axes have been thrown
   // Show stats
   } else if (bigThrows == 15){
+    alert("Done!");
     showStats();
   }
 }
@@ -222,37 +210,38 @@ function showStats() {
   el.remove();
 
   // Displays Hatchet Stats
-  var head = document.getElementById("after");
-  var text = document.createTextNode("HATCHET STATS");
-  head.appendChild(text);// Shows the average
+  let hatHead = "HATCHET STATS";
+  let result = hatHead.bold();
+  document.getElementById("hatStatsHead").innerHTML = result;
+
+  // Shows hatchet average
+  var head = document.getElementById("hatStats");
+  var text = document.createTextNode("Your Average is: " + getAvg());
+  head.appendChild(text);
 
   let br = document.createElement("br");
   head.appendChild(br);
 
-  // Shows hatchet average
-  var head = document.getElementById("after");
-  var text = document.createTextNode("Your Average is: " + getAvg());
-  head.appendChild(text);
-
   // Displays number of each point val thrown
   for (let i = 0; i < stats.length; i++) {
-    let br = document.createElement("br");
-    head.appendChild(br);
-
-    let stat = document.getElementById("after");
+    let stat = document.getElementById("hatStats");
     let text = document.createTextNode("Number of " + pointVal[i] + "'s thrown: "
                                       + stats[i]);
     head.appendChild(text);
+
+    let br = document.createElement("br");
+    head.appendChild(br);
   }
 
   // If Big Axe was thrown show Big Stats
   if (big) {
-    let br = document.createElement("br");
-    head.appendChild(br);
 
-    var head = document.getElementById("after");
-    var text = document.createTextNode("BIG AXE STATS");
-    head.appendChild(text);
+    var head = document.getElementById("bigStats");
+
+    // Displays Hatchet Stats
+    let bigHead = "BIG AXE STATS";
+    let result = bigHead.bold();
+    document.getElementById("bigStatsHead").innerHTML = result;
 
     // Used for total big axe score
     let bigTot = 0;
@@ -261,27 +250,33 @@ function showStats() {
     for (let i = 0; i < bigStats.length; i++)
       bigTot += pointVal[i] * bigStats[i];
 
+    let br = document.createElement("br");
     head.appendChild(br);
 
     // Shows Big Axe score out of max points
-    var head = document.getElementById("after");
+    var head = document.getElementById("bigStats");
     var text = document.createTextNode("Total Score: " + bigTot + "/105");
     head.appendChild(text);
 
+
+  //  let br = document.createElement("br");
+    head.appendChild(br);
+
     // Displays number of each point val thrown
     for (let i = 0; i < bigStats.length; i++) {
-      let br = document.createElement("br");
-      head.appendChild(br);
 
-      let stat = document.getElementById("after");
+      let stat = document.getElementById("bigStats");
       let text = document.createTextNode("Number of " + pointVal[i] + "'s thrown: "
                                         + bigStats[i]);
       head.appendChild(text);
+
+      let br = document.createElement("br");
+      head.appendChild(br);
     }
   }
 
   // Adds restart button
-  let but = document.getElementById("after");
+  let but = document.getElementById("restartButt");
   child = document.createElement("button");
   child.innerHTML = "RESTART";
   child.onclick = function() {
