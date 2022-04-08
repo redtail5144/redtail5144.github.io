@@ -65,6 +65,7 @@ function undoLast() {
 
 // Increments stat when hit
 function inc(val) {
+  console.log("inc:"+val);
   // Hatchet Vals
   if (!big) {
     switch (val) {
