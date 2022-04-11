@@ -19,28 +19,14 @@ var botClutch = [0.0, 0.0];
 // Initalizes everything
 // for the game
 function init() {
-  console.log("Init Start");
   chooseBot();
   pScores = [];
   pTot = [0,0,0];
   botScores = [];
   botTot = [0,0,0];
   round = 0;
-  getNames();
   document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
 }
-
-// Alert box that gets names of throwers
-// Loops until two non null non empty
-// Names are entered
-function getNames(){
-  do {
-    n1 = prompt("Player 1 name:", "Player 1");
-  } while (n1 == null || n1 == "")
-  document.getElementById("name1").innerHTML = n1;
-  document.getElementById("name1.1").innerHTML = n1;
-}
-
 
 // Sets the bot up
 // with scoring probability
@@ -93,8 +79,6 @@ function botSetup(name) {
   botClutch[0] = cCall; // Sets clutch call rate
   botClutch[1] = cHit; // Sets clutch hit rate
 
-  console.log("Bot Stats: " + botWeights);
-
   document.getElementById("name2").innerHTML = name;
   document.getElementById("name2.2").innerHTML = name;
 
@@ -146,16 +130,11 @@ function targetClick(value) {
   if (throwNum != 0 && throwNum % 5 == 0) {
     window.setTimeout(moveRound, 1);
   }
-
-  console.log("Throw: " + throwNum);
-  console.log("Scores: " + pScores);
 }
 
 // Bot takes turn
 function botTurn() {
   let ac = Math.random() * 100;
-  console.log("========Rnd: " + ac);
-
   // If last throw and bot calls clutch
   if (throwNum == 5 && ac < botClutch[0]) {
     // Generate new number for hit
@@ -167,19 +146,15 @@ function botTurn() {
   } else {
     // If is in 5 range
     if (ac > 100 - botWeights[0]) {
-      console.log(5);
       return 5;
     // If is in 3 range
     } else if (ac > 100 - botWeights[0] - botWeights[1]) {
-      console.log(3);
       return 3;
     // If is in 1 range
     } else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2]) {
-      console.log(1);
       return 1;
     // If is in miss range
     } else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2] - botWeights[3]) {
-      console.log(0);
       return 0;
     }
   }
@@ -223,6 +198,7 @@ function moveRound() {
   }
 }
 
+// Shows the end results of the game
 function showEnd() {
   document.getElementById("game").style.display = "none";
 
@@ -290,6 +266,15 @@ function showEnd() {
   rDiv.appendChild(bScoreDiv);
 
   document.body.appendChild(rDiv);
+
+  let but = document.createElement("button");
+  but.innerHTML = "RESTART";
+  but.onclick = function() {
+    alert("Throw Better");
+    location.href = "botGame.html";
+  }
+
+  document.body.appendChild(but);
 }
 
 // Used for choosing AI Opponent
@@ -300,7 +285,14 @@ function chooseBot() {
 
   // Title
   var tit = document.createElement("h2");
-  tit.innerHTML = "<b>Choose Bot</b>";
+  tit.innerHTML = "<b>Setup</b>";
+
+  var n = document.createElement("input");
+  n.setAttribute('type',"text");
+  n.value = "Name 1";
+  var nLab = document.createElement("Label");
+  nLab.htmlFor = "text";
+  nLab.innerHTML = "<b>Player Name:</b>";
 
   // Choose which bot to play
   var ai = document.createElement("select");
@@ -338,7 +330,10 @@ function chooseBot() {
   ai.value = "Rander"; // Default
   var aiLab = document.createElement("Label");
   aiLab.htmlFor = "text";
-  aiLab.innerHTML = "<b>Opponent:</b>";
+  aiLab.innerHTML = "<br><b>Opponent:</b>";
+
+  var disclaimer = document.createElement("p");
+  disclaimer.innerHTML = "This is still a work in Progress. Ai will always throw after you even on final axe when ahead. Big axe is also non-existent until IATF realizes we want big axe stats tracked or I stopped being lazy enough to get the data myself. The bot is also very stupid and not the best representation of its real life counterpart";
 
 /*
   // Play to win function
@@ -357,6 +352,9 @@ function chooseBot() {
   but.innerHTML = "Submit";
   but.type = "button";
   but.onclick = function() {
+    n1 = n.value;
+    document.getElementById("name1").innerHTML = n.value;
+    document.getElementById("name1.1").innerHTML = n.value;
     botSetup(ai.value);
   }
 
@@ -365,8 +363,11 @@ function chooseBot() {
 
   // Adds everything to the screen
   form.appendChild(tit);
+  form.appendChild(nLab);
+  form.appendChild(n);
   form.appendChild(aiLab);
   form.appendChild(ai);
+  form.appendChild(disclaimer);
   //form.appendChild(cLab);
   //form.appendChild(cBox);
   form.appendChild(but);
