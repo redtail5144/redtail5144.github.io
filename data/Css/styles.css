@@ -106,3 +106,14 @@ body {
 p {
   text-align: center;
 }
+
+form {
+/* Center the form on the page */
+margin: 0 auto;
+width: 400px;
+/* Form outline */
+padding: 1em;
+border: 1px solid #CCC;
+border-radius: 1em;
+background-color:rgba(192,192,192,0.8);
+}
