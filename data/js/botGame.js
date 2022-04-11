@@ -4,6 +4,8 @@ var bScores = []; // Array of bot scores
 var bTot = [0,0,0]; // Array of total for each round
 var round = 0; // Currnet round # - 1
 var throwNum = 0;
+var n1 = "";
+var n2 = "";
 
 // Weights of accuracy
 // Second row keeps track of values
@@ -32,18 +34,18 @@ function init() {
 // Loops until two non null non empty
 // Names are entered
 function getNames(){
-  let pName;
   do {
-    pName = prompt("Player 1 name:", "Player 1");
-  } while (pName == null || pName == "")
-  document.getElementById("name1").innerHTML = pName;
-  document.getElementById("name1.1").innerHTML = pName;
+    n1 = prompt("Player 1 name:", "Player 1");
+  } while (n1 == null || n1 == "")
+  document.getElementById("name1").innerHTML = n1;
+  document.getElementById("name1.1").innerHTML = n1;
 }
 
 
 // Sets the bot up
 // with scoring probability
 function botSetup(name) {
+  n2 = name;
   var black, red, blue, cCall, cHit;
 
   switch (name) {
@@ -193,6 +195,7 @@ function moveRound() {
       document.getElementById("br".concat(round + 1)).innerHTML = bTot[round];
 
       // TODO: Check win shit here
+      showEnd();
 
     } else targetClick('undo');
 
@@ -218,6 +221,75 @@ function moveRound() {
   } else {
     targetClick('undo');
   }
+}
+
+function showEnd() {
+  document.getElementById("game").style.display = "none";
+
+  //==========================LEFT=====================================//
+
+  var lDiv = document.createElement("div");
+  lDiv.id = "prScores";
+
+  var pScoreDiv = document.createElement("div");
+  pScoreDiv.className = "throws";
+
+  let h = document.createElement("h2");
+  h.innerHTML = n1;
+
+  lDiv.appendChild(h);
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    for (let j = 0; j < 5; j++) {
+
+      p.innerHTML += pScores[(i * 5) + j] + ", ";
+    }
+    pScoreDiv.appendChild(p);
+  }
+
+  lDiv.appendChild(pScoreDiv);
+
+  document.body.appendChild(lDiv);
+
+  //==========================MIDDLE==================================//
+
+  var mDiv = document.createElement("div");
+  mDiv.id = "endTots";
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    p.innerHTML = pTot[i] + " : " + bTot[i];
+    mDiv.appendChild(p);
+  }
+
+  document.body.appendChild(mDiv);
+
+  //==========================RIGHT==================================//
+
+  var rDiv = document.createElement("div");
+  rDiv.id = "brScores";
+
+  var bScoreDiv = document.createElement("div");
+  bScoreDiv.className = "throws";
+
+  h = document.createElement("h2");
+  h.innerHTML = n2;
+
+  rDiv.appendChild(h);
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    for (let j = 0; j < 5; j++) {
+
+      p.innerHTML += bScores[(i * 5) + j] + ", ";
+    }
+    bScoreDiv.appendChild(p);
+  }
+
+  rDiv.appendChild(bScoreDiv);
+
+  document.body.appendChild(rDiv);
 }
 
 // Used for choosing AI Opponent
