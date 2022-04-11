@@ -7,9 +7,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<script src = "js/scripts.js"></script>
+<style>
+h2 {
+  text-align: center;
+}
+</style>
 
-<body onload = "getNames()">
+<script src = "js/game.js"></script>
+
+<body onload = "init()">
+
+  <h2 id = "roundDisplay"></h2>
 
   <div id = "left">
     <p id = "name1">Name 1</p>

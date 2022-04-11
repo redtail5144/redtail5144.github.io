@@ -65,6 +65,7 @@ function undoLast() {
 
 // Increments stat when hit
 function inc(val) {
+  console.log("inc:"+val);
   // Hatchet Vals
   if (!big) {
     switch (val) {
@@ -186,12 +187,7 @@ function checkDone() {
     // Prompt user to throw big axe
     if (throws == 75) {
       // If yes enable big axe mode
-      if (confirm("Throw Big Axe?")) {
-        big = true;
-      // If not show stats
-      } else {
-        showStats();
-      }
+      window.setTimeout(throwBig(), 1);
     }
   // If 15 Big Axes have been thrown
   // Show stats
@@ -284,4 +280,13 @@ function showStats() {
     location.href = "round1.html";
   }
   but.appendChild(child);
+}
+
+function throwBig() {
+  if (confirm("Throw Big Axe?")) {
+    big = true;
+  // If not show stats
+  } else {
+    showStats();
+  }
 }

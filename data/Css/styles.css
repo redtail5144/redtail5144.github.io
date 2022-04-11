@@ -1,23 +1,73 @@
-#left {
-  float: left;
-  padding: 5em;
-  height: 5%;
-}
-
-#right {
-  float: right;
-  padding: 5em;
-  height: 100%;
-}
-
-#throws p{
+.scores {
   border-style: solid;
   text-align: center;
+}
+
+.tots {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  border: 2px dashed red;
 }
 
 #hatStats, #bigStats {
     text-align: center;
     vertical-align: middle;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.container {
+  display: flex;
+}
+
+.left {
+  float: left;
+  padding: 1em;
+  height: 5%;
+  width: 33%;
+  border: solid 1px red;
+  overflow: hidden;
+}
+
+.mid {
+  display: table;
+  flex-wrap: wrap;
+  padding: 1em;
+  height: 100%;
+  width: 33%;
+  border: solid 1px red;
+  overflow: hidden;
+}
+
+.right {
+  padding: 1em;
+  height: 100%;
+  width: 33%;
+  border: solid 1px red;
+  overflow: hidden;
 }
 
 .bullBut {
@@ -50,19 +100,13 @@
   color: white;
 }
 
-.footer {
-    width: 100%;
-    height: 75px;
-    background-color: #66CCFF;
-    margin: 0;
-    padding: 0;
-}
 .buttonsRow {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
 }
+
 .button-wrapper {
     display: inline-block;
     margin: 0;
@@ -71,7 +115,7 @@
 }
 
 button {
-    height: 33px;
+    height: 69px;
     width: 100%;
     margin: 2px;
 }
@@ -81,4 +125,19 @@ body {
     /*url(../images/Background.jpg)*/
     no-repeat;
   background-size: cover;
+}
+
+p {
+  text-align: center;
+}
+
+form {
+/* Center the form on the page */
+margin: 0 auto;
+width: 400px;
+/* Form outline */
+padding: 1em;
+border: 1px solid #CCC;
+border-radius: 1em;
+background-color:rgba(192,192,192,0.8);
 }
