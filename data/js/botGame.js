@@ -91,6 +91,8 @@ function botSetup(name) {
 function targetClick(value) {
   // If undo button pressed
   if (value == "undo") {
+    let temp = document.getElementById("nextBut");
+    if (temp != null) temp.remove();
     // Makes sure there is something to undo
     if (throwNum != 0) {
       // Changes the last element back to '-'
@@ -123,12 +125,22 @@ function targetClick(value) {
   }
 
   // Updates the total
-  document.getElementById('ptot').innerHTML = pTot[round];
-  document.getElementById('btot').innerHTML = bTot[round];
+  document.getElementById('ptot'.concat(round)).innerHTML = pTot[round];
+  document.getElementById('btot'.concat(round)).innerHTML = bTot[round];
 
   // Checks to see if round is done
   if (throwNum != 0 && throwNum % 5 == 0) {
-    window.setTimeout(moveRound, 1);
+    let but = document.createElement("button");
+    but.innerHTML = "Next Round";
+    but.id = "nextBut";
+    but.onclick = function() {
+      moveRound();
+    }
+
+    let gam = document.getElementById("game");
+
+    gam.appendChild(but);
+    //window.setTimeout(moveRound, 1);
   }
 }
 
@@ -137,6 +149,7 @@ function botTurn() {
   let ac = Math.random() * 100;
   // If last throw and bot calls clutch
   if (throwNum == 5 && ac < botClutch[0]) {
+    document.getElementById("baxe5").style.background = "green";
     // Generate new number for hit
     ac = Math.random() * 100;
     // If hits return 7
@@ -162,12 +175,28 @@ function botTurn() {
 
 // Advances to the next round
 function moveRound() {
+  let temp = document.getElementById("nextBut");
+  temp.remove();
   // If last round
+  if (round == 2) showEnd();
+  else {
+    throwNum = 0;
+    round ++;
+
+    // Reset the display
+    document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
+
+    // Changes throws back to '-'
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById("paxe".concat(i)).innerHTML = '-';
+      document.getElementById("baxe".concat(i)).innerHTML = '-';
+    }
+  }
+
+  document.getElementById("baxe5").style.background = "";
+  /*
   if (round == 2) {
     if (confirm("End Game?")) {
-      // Display round total
-      document.getElementById("pr".concat(round + 1)).innerHTML = pTot[round];
-      document.getElementById("br".concat(round + 1)).innerHTML = bTot[round];
 
       // TODO: Check win shit here
       showEnd();
@@ -181,21 +210,17 @@ function moveRound() {
     // Reset the display
     document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
 
-    // Display round total
-    document.getElementById("pr".concat(round)).innerHTML = pTot[round - 1];
-    document.getElementById("br".concat(round)).innerHTML = bTot[round - 1];
-
     // Changes throws back to '-'
     for (let i = 1; i <= 5; i++) {
       document.getElementById("paxe".concat(i)).innerHTML = '-';
       document.getElementById("baxe".concat(i)).innerHTML = '-';
     }
-    // Changes round total back to '-'
-    document.getElementById('ptot').innerHTML = '-';
-    document.getElementById('btot').innerHTML = '-';
+
   } else {
     targetClick('undo');
   }
+
+  document.getElementById("baxe5").style.background = "";*/
 }
 
 // Shows the end results of the game
