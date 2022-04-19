@@ -17,60 +17,68 @@ h2 {
 
 <body onload = "init()">
 
-  <div class="topnav">
+  <div class = "topnav">
     <a  href="../index.html">Home</a>
     <a href="round1.html">Round 1</a>
-    <a class="active" href="botGame.html">Ai Game</a>
+    <a class = "active" href="botGame.html">Ai Game</a>
   </div>
 
   <div id = "game" style = "display: none;">
     <h2 id = "roundDisplay"></h2>
 
-    <div class = "left">
-      <p id = "name1">Name 1</p>
-      <button class = "button missBut" onclick = "targetClick(0)">0</button>
-      <button class = "button blueBut" onclick = "targetClick(1)">1</button>
-      <button class = "button redBut" onclick = "targetClick(3)">3</button>
-      <button class = "button bullBut" onclick = "targetClick(5)">5</button>
-      <button class = "button clutchBut" onclick = "targetClick(7)">7</button>
-      <button class = "button undoBut" onclick = "targetClick('undo')">undo</button>
-      <div class = "throws">
-        <p class = "scores" id = "paxe1">-</p>
-        <p class = "scores" id = "paxe2">-</p>
-        <p class = "scores" id = "paxe3">-</p>
-        <p class = "scores" id = "paxe4">-</p>
-        <p class = "scores" id = "paxe5">-</p>
-        <p class = "scores" id = "ptot">0</p>
+    <div class = "gThrows">
+      <div class = "pName" id = "name1">-</div>
+      <div class = "pa1" id = "paxe1">-</div>
+      <div class = "pa2" id = "paxe2">-</div>
+      <div class = "pa3" id = "paxe3">-</div>
+      <div class = "pa4" id = "paxe4">-</div>
+      <div class = "pa5" id = "paxe5">-</div>
+      <div class = "bName" id = "name2">-</div>
+      <div class = "ba1" id = "baxe1">-</div>
+      <div class = "ba2" id = "baxe2">-</div>
+      <div class = "ba3" id = "baxe3">-</div>
+      <div class = "ba4" id = "baxe4">-</div>
+      <div class = "ba5" id = "baxe5">-</div>
+    </div>
+
+    <div class="gTots">
+      <div class="pNameTot" id = "name1.1">-</div>
+      <div class="pTot1" id = "ptot0">-</div>
+      <div class="pTot2" id = "ptot1">-</div>
+      <div class="pTot3" id = "ptot2">-</div>
+      <div class="bNameTot" id = "name2.2">-</div>
+      <div class="bTot1" id = "btot0">-</div>
+      <div class="bTot2" id = "btot1">-</div>
+      <div class="bTot3" id = "btot2">-</div>
+    </div>
+
+    <div>
+      <div class = "buttonsRow">
+          <div class = "button-wrapper" style="width: 50%">
+              <button onclick = "targetClick('undo')">Undo</button>
+          </div>
+          <div class = "button-wrapper" style="width: 50%">
+              <button onclick = "targetClick(0)">0</button>
+          </div>
+      </div>
+      <div class = "buttonsRow">
+          <div class = "button-wrapper" style="width: 50%">
+              <button onclick = "targetClick(1)">1</button>
+          </div>
+          <div class = "button-wrapper" style="width: 50%">
+              <button onclick = "targetClick(3)">3</button>
+          </div>
+      </div>
+      <div class = "buttonsRow">
+          <div class = "button-wrapper" style="width: 50%">
+            <button onclick = "targetClick(5)">5</button>
+          </div>
+          <div class = "button-wrapper" style="width: 50%">
+            <button onclick = "targetClick(7)">7</button>
+          </div>
       </div>
     </div>
 
-    <div class = "right">
-      <div class = "throws">
-        <p id = "name2">Name 2</p>
-        <p class = "scores" id = "baxe1">-</p>
-        <p class = "scores" id = "baxe2">-</p>
-        <p class = "scores" id = "baxe3">-</p>
-        <p class = "scores" id = "baxe4">-</p>
-        <p class = "scores" id = "baxe5">-</p>
-        <p class = "scores" id = "btot">0</p>
-      </div>
-    </div>
-
-    <div id = "tots" class = "mid">
-      <div class = "tots">
-        <p id = "name1.1">Name 1</p>
-        <p class = "scores" id = "pr1">-</p>
-        <p class = "scores" id = "pr2">-</p>
-        <p class = "scores" id = "pr3">-</p>
-      </div>
-
-      <div class = "tots">
-        <p id = "name2.2">Name 2</p>
-        <p class = "scores" id = "br1">+</p>
-        <p class = "scores" id = "br2">+</p>
-        <p class = "scores" id = "br3">+</p>
-      </div>
-    </div>
   </div>
 
 </body>

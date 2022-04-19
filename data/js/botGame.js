@@ -3,9 +3,11 @@ var pTot = [0,0,0]; // Array of total for each round
 var bScores = []; // Array of bot scores
 var bTot = [0,0,0]; // Array of total for each round
 var round = 0; // Currnet round # - 1
-var throwNum = 0;
-var n1 = "";
-var n2 = "";
+var throwNum = 0; // Current throw
+var n1 = ""; // Player 1 name
+var n2 = ""; // Player 2 name
+var flag = true; // Used to see if bot throws first
+var p2w = false; // Used to see if bot plays to win
 
 // Weights of accuracy
 // Second row keeps track of values
@@ -30,8 +32,9 @@ function init() {
 
 // Sets the bot up
 // with scoring probability
-function botSetup(name) {
+function botSetup(name, win) {
   n2 = name;
+  p2w = win;
   var black, red, blue, cCall, cHit;
 
   switch (name) {
@@ -91,6 +94,9 @@ function botSetup(name) {
 function targetClick(value) {
   // If undo button pressed
   if (value == "undo") {
+    let temp = document.getElementById("nextBut");
+    if (temp != null) temp.remove();
+    flag = true;
     // Makes sure there is something to undo
     if (throwNum != 0) {
       // Changes the last element back to '-'
@@ -112,9 +118,11 @@ function targetClick(value) {
     pTot[round] += value;
 
     // Same thing but for bot
-    let bVal = botTurn();
-    bScores.push(bVal);
-    bTot[round] += bVal;
+    if (flag) {
+      let bVal = botTurn();
+      bScores.push(bVal);
+      bTot[round] += bVal;
+    }
 
     // Displays the throws
     let temp = (round * 5) + throwNum;
@@ -123,79 +131,122 @@ function targetClick(value) {
   }
 
   // Updates the total
-  document.getElementById('ptot').innerHTML = pTot[round];
-  document.getElementById('btot').innerHTML = bTot[round];
+  document.getElementById('ptot'.concat(round)).innerHTML = pTot[round];
+  document.getElementById('btot'.concat(round)).innerHTML = bTot[round];
 
   // Checks to see if round is done
   if (throwNum != 0 && throwNum % 5 == 0) {
-    window.setTimeout(moveRound, 1);
+    let but = document.createElement("button");
+    but.innerHTML = "Next Round";
+    but.id = "nextBut";
+    but.onclick = function() {
+      moveRound();
+    }
+
+    let gam = document.getElementById("game");
+
+    gam.appendChild(but);
+    //window.setTimeout(moveRound, 1);
+  }
+
+  // Bot throws first if its up
+  if (throwNum == 4 && bTot[round] > pTot[round]) {
+    flag = false;
+    let bVal = botTurn();
+
+    bScores.push(bVal);
+    bTot[round] += bVal;
+
+    let temp = (round * 5) + (throwNum + 1);
+    document.getElementById('baxe'.concat(throwNum + 1)).innerHTML = bScores[temp-1];
+    document.getElementById('btot'.concat(round)).innerHTML = bTot[round];
   }
 }
 
 // Bot takes turn
 function botTurn() {
   let ac = Math.random() * 100;
-  // If last throw and bot calls clutch
-  if (throwNum == 5 && ac < botClutch[0]) {
-    // Generate new number for hit
-    ac = Math.random() * 100;
-    // If hits return 7
-    if (ac < botClutch[1]) return 7;
-    else return 0;
-  // If not last throw or bot doesn't go clutch
-  } else {
-    // If is in 5 range
-    if (ac > 100 - botWeights[0]) {
-      return 5;
-    // If is in 3 range
-    } else if (ac > 100 - botWeights[0] - botWeights[1]) {
-      return 3;
-    // If is in 1 range
-    } else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2]) {
-      return 1;
-    // If is in miss range
-    } else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2] - botWeights[3]) {
-      return 0;
-    }
-  }
+
+  // If final throw
+  if (throwNum == 5 || !flag) {
+    // If bot is playing to win
+    if (p2w) {
+      // If bot needs clutch to win
+      // Or if it is out of reach
+      // Throw Clutch
+      if (pTot[round] - bTot[round] >= 5) {
+        let temp = (round * 5) + (throwNum - 1);
+        if (pTot[round] - pScores[temp] == bTot[round])
+          return botPoints();
+
+        return botClutchThrow();
+      }
+
+      // Other wise just go for points
+      else return botPoints();
+
+    // If bot is not playing to win
+    // See if it wants to go clutch
+    } else if (ac < botClutch[0])
+      return botClutchThrow();
+    // if it doesn't go clutch
+    else return botPoints();
+
+  // If not last throw
+  } else
+    return botPoints();
+}
+
+// Bot throws for points
+// Returns value based on weighted probabilities
+function botPoints() {
+  let ac = Math.random() * 100;
+
+  if (ac > 100 - botWeights[0])
+    return 5;
+  // If is in 3 range
+  else if (ac > 100 - botWeights[0] - botWeights[1])
+    return 3;
+  // If is in 1 range
+  else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2])
+    return 1;
+  // If is in miss range
+  else if (ac > 100 - botWeights[0] - botWeights[1] - botWeights[2] - botWeights[3])
+    return 0;
+}
+
+// Bot throws for clutch
+function botClutchThrow() {
+  // Changes background to green to show clutch was called
+  document.getElementById("baxe5").style.background = "green";
+  let ac = Math.random() * 100;
+
+  if (ac < botClutch[1]) return 7;
+  else return 0;
 }
 
 // Advances to the next round
 function moveRound() {
+  flag = true;
+  let temp = document.getElementById("nextBut");
+  temp.remove();
   // If last round
-  if (round == 2) {
-    if (confirm("End Game?")) {
-      // Display round total
-      document.getElementById("pr".concat(round + 1)).innerHTML = pTot[round];
-      document.getElementById("br".concat(round + 1)).innerHTML = bTot[round];
-
-      // TODO: Check win shit here
-      showEnd();
-
-    } else targetClick('undo');
-
-  }else if (confirm("Move to Round " + (round + 2) + "?")) {
-    throwNum = 0; // Sets throwNum back to 0
-    round++; // move to next round
+  if (round == 2) showEnd();
+  else {
+    throwNum = 0;
+    round ++;
 
     // Reset the display
     document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
-
-    // Display round total
-    document.getElementById("pr".concat(round)).innerHTML = pTot[round - 1];
-    document.getElementById("br".concat(round)).innerHTML = bTot[round - 1];
 
     // Changes throws back to '-'
     for (let i = 1; i <= 5; i++) {
       document.getElementById("paxe".concat(i)).innerHTML = '-';
       document.getElementById("baxe".concat(i)).innerHTML = '-';
     }
-    // Changes round total back to '-'
-    document.getElementById('ptot').innerHTML = '-';
-    document.getElementById('btot').innerHTML = '-';
-  } else {
-    targetClick('undo');
   }
+
+  document.getElementById("baxe5").style.background = "";
 }
 
 // Shows the end results of the game
@@ -292,7 +343,7 @@ function chooseBot() {
   n.value = "Name 1";
   var nLab = document.createElement("Label");
   nLab.htmlFor = "text";
-  nLab.innerHTML = "<b>Player Name:</b>";
+  nLab.innerHTML = "<b>Player Name: </b>";
 
   // Choose which bot to play
   var ai = document.createElement("select");
@@ -330,12 +381,11 @@ function chooseBot() {
   ai.value = "Rander"; // Default
   var aiLab = document.createElement("Label");
   aiLab.htmlFor = "text";
-  aiLab.innerHTML = "<br><b>Opponent:</b>";
+  aiLab.innerHTML = "<br><b>Opponent: </b>";
 
   var disclaimer = document.createElement("p");
   disclaimer.innerHTML = "This is still a work in Progress. Ai will always throw after you even on final axe when ahead. Big axe is also non-existent until IATF realizes we want big axe stats tracked or I stopped being lazy enough to get the data myself. The bot is also very stupid and not the best representation of its real life counterpart";
 
-/*
   // Play to win function
   var cBox = document.createElement("input");
   cBox.type = 'checkbox';
@@ -344,8 +394,7 @@ function chooseBot() {
   cBox.value = 'car?';
   var cLab = document.createElement("label");
   cLab.htmlFor = 'p2wBut';
-  cLab.innerHTML = "<br><b>Play To Win(Currently Doesn't Work):<b>";
-  */
+  cLab.innerHTML = "<br><b>Play To Win: <b>";
 
   // Submit button
   var but = document.createElement("button");
@@ -355,7 +404,7 @@ function chooseBot() {
     n1 = n.value;
     document.getElementById("name1").innerHTML = n.value;
     document.getElementById("name1.1").innerHTML = n.value;
-    botSetup(ai.value);
+    botSetup(ai.value, document.getElementById("p2wBut").checked);
   }
 
   // <p> for styling
@@ -367,9 +416,9 @@ function chooseBot() {
   form.appendChild(n);
   form.appendChild(aiLab);
   form.appendChild(ai);
+  form.appendChild(cLab);
+  form.appendChild(cBox);
   form.appendChild(disclaimer);
-  //form.appendChild(cLab);
-  //form.appendChild(cBox);
   form.appendChild(but);
   document.body.appendChild(form);
 }
