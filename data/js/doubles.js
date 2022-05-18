@@ -48,6 +48,10 @@ function getNames(){
   t1Lab.htmlFor = "text";
   t1Lab.innerHTML = "<br><b>Team 2 Name: </b>";
 
+  // Disclaimer
+  var disclaimer = document.createElement("p");
+  disclaimer.innerHTML = "Big Axe and Grimmace currently in development";
+
   // Submit Button
   var but = document.createElement("button");
   but.innerHTML = "Submit";
@@ -63,6 +67,7 @@ function getNames(){
   form.appendChild(t0Name);
   form.appendChild(t1Lab);
   form.appendChild(t1Name);
+  form.appendChild(disclaimer);
   form.appendChild(but);
   document.body.appendChild(form);
 }
