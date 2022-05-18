@@ -24,19 +24,47 @@ function init() {
 // Loops until two non null non empty
 // Names are entered
 function getNames(){
-  let pName;
-  do {
-    pName = prompt("Team 1 name:", "Team 1");
-  } while (pName == null || pName == "")
-  document.getElementById("name1").innerHTML = pName;
-  document.getElementById("name1.1").innerHTML = pName;
-  p0Name = pName;
-  do {
-    pName = prompt("Team 2 name:", "Team 2");
-  } while (pName == null || pName == "")
-  document.getElementById("name2").innerHTML = pName;
-  document.getElementById("name2.2").innerHTML = pName;
-  p1Name = pName;
+  // Form for inputting player names
+  var form = document.createElement("form");
+  form.setAttribute("id", "nameInput")
+
+  //Title
+  var tit = document.createElement("h2");
+  tit.innerHTML = "Enter Team Names";
+
+  // Team 1 Name
+  var t0Name = document.createElement("input");
+  t0Name.setAttribute("type", "text");
+  t0Name.value = ("Team 1");
+  var t0Lab = document.createElement("Label");
+  t0Lab.htmlFor = "text";
+  t0Lab.innerHTML = "<b>Team 1 Name: </b>";
+
+  // Team 2 Name
+  var t1Name = document.createElement("input");
+  t1Name.setAttribute("type", "text");
+  t1Name.value = ("Team 2");
+  var t1Lab = document.createElement("Label");
+  t1Lab.htmlFor = "text";
+  t1Lab.innerHTML = "<br><b>Team 2 Name: </b>";
+
+  // Submit Button
+  var but = document.createElement("button");
+  but.innerHTML = "Submit";
+  but.type = "button";
+  but.onclick = function() {
+    p0Name = t0Name.value;
+    p1Name = t1Name.value;
+    displayGame();
+  }
+
+  form.appendChild(tit);
+  form.appendChild(t0Lab);
+  form.appendChild(t0Name);
+  form.appendChild(t1Lab);
+  form.appendChild(t1Name);
+  form.appendChild(but);
+  document.body.appendChild(form);
 }
 
 // When target is clicked
@@ -257,4 +285,16 @@ function showEnd() {
   }
 
   document.body.appendChild(but);
+}
+
+// Shows Game UI
+function displayGame() {
+  document.getElementById("game").style.display = "block";
+  document.getElementById("nameInput").style.display = "none";
+
+  document.getElementById("name1").innerHTML = p0Name;
+  document.getElementById("name1.1").innerHTML = p0Name;
+
+  document.getElementById("name2").innerHTML = p1Name;
+  document.getElementById("name2.2").innerHTML = p1Name;
 }

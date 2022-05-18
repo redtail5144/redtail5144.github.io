@@ -24,19 +24,47 @@ function init() {
 // Loops until two non null non empty
 // Names are entered
 function getNames(){
-  let pName;
-  do {
-    pName = prompt("Player 1 name:", "Player 1");
-  } while (pName == null || pName == "")
-  document.getElementById("name1").innerHTML = pName;
-  document.getElementById("name1.1").innerHTML = pName;
-  p0Name = pName;
-  do {
-    pName = prompt("Player 2 name:", "Player 2");
-  } while (pName == null || pName == "")
-  document.getElementById("name2").innerHTML = pName;
-  document.getElementById("name2.2").innerHTML = pName;
-  p1Name = pName;
+  // Form for inputting player names
+  var form = document.createElement("form");
+  form.setAttribute("id", "nameInput")
+
+  //Title
+  var tit = document.createElement("h2");
+  tit.innerHTML = "Enter Player Names";
+
+  // Player 1 Name
+  var pl0Name = document.createElement("input");
+  pl0Name.setAttribute("type", "text");
+  pl0Name.value = ("Player 1");
+  var p0Lab = document.createElement("Label");
+  p0Lab.htmlFor = "text";
+  p0Lab.innerHTML = "<b>Player 1 Name: </b>";
+
+  // Player 2 Name
+  var pl1Name = document.createElement("input");
+  pl1Name.setAttribute("type", "text");
+  pl1Name.value = ("Player 2");
+  var p1Lab = document.createElement("Label");
+  p1Lab.htmlFor = "text";
+  p1Lab.innerHTML = "<br><b>Player 2 Name: </b>";
+
+  // Submit Button
+  var but = document.createElement("button");
+  but.innerHTML = "Submit";
+  but.type = "button";
+  but.onclick = function() {
+    p0Name = pl0Name.value;
+    p1Name = pl1Name.value;
+    displayGame();
+  }
+
+  form.appendChild(tit);
+  form.appendChild(p0Lab);
+  form.appendChild(pl0Name);
+  form.appendChild(p1Lab);
+  form.appendChild(pl1Name);
+  form.appendChild(but);
+  document.body.appendChild(form);
 }
 
 // When target is clicked
@@ -226,4 +254,18 @@ function showEnd() {
   }
 
   document.body.appendChild(but);
+}
+
+// Shows Game UI
+function displayGame() {
+  document.getElementById("game").style.display = "block";
+  document.getElementById("nameInput").style.display = "none";
+
+  console.log("p0Name: " + p0Name);
+  console.log("p1Name: " + p1Name);
+  document.getElementById("name1").innerHTML = p0Name;
+  document.getElementById("name1.1").innerHTML = p0Name;
+
+  document.getElementById("name2").innerHTML = p1Name;
+  document.getElementById("name2.2").innerHTML = p1Name;
 }
