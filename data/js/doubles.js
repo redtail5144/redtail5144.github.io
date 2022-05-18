@@ -26,13 +26,13 @@ function init() {
 function getNames(){
   let pName;
   do {
-    pName = prompt("Player 1 name:", "Player 1");
+    pName = prompt("Team 1 name:", "Team 1");
   } while (pName == null || pName == "")
   document.getElementById("name1").innerHTML = pName;
   document.getElementById("name1.1").innerHTML = pName;
   p0Name = pName;
   do {
-    pName = prompt("Player 2 name:", "Player 2");
+    pName = prompt("Team 2 name:", "Team 2");
   } while (pName == null || pName == "")
   document.getElementById("name2").innerHTML = pName;
   document.getElementById("name2.2").innerHTML = pName;
@@ -54,42 +54,64 @@ function targetClick(player, value) {
       case "p0":
         // Makes sure there is something to undo
         if (p0Scores.length != 0) {
+          let last = p0Scores.pop();
           // Removes last element
-          p0Tot[round] -= p0Scores.pop();
+          p0Tot[round] -= last;
           // Updates ui
-          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = '-';
+          if (p0ThrowNum % 1 == 0) {
+            let temp2 = parseInt(document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML);
+            temp2 -= last;
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp2;
+          } else
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = '-';
           // Decrements number of throws
-          p0ThrowNum--;
+          p0ThrowNum -= 0.5;
         }
         break;
       case "p1":
         if (p1Scores.length != 0) {
-          p1Tot[round] -= p1Scores.pop();
-          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = '-';
-          p1ThrowNum--;
+          let last = p1Scores.pop()
+          p1Tot[round] -= last;
+          if (p1ThrowNum % 1 == 0) {
+            let temp2 = parseInt(document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML);
+            temp2 -= last;
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = temp2;
+          } else
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = '-';
+          p1ThrowNum -= 0.5;
         }
         break;
     }
   } else {
     switch (player) {
       case "p0":
-        if (p0ThrowNum <= 4) {
+        if (Math.floor(p0ThrowNum) <= 4) {
           // Increments number of throws
-          p0ThrowNum++;
+          p0ThrowNum += 0.5;
           // Adds value to array
           p0Scores.push(value);
           // Increases total
           p0Tot[round] += value;
           // Updates UI
-          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = value;
+          if (p0ThrowNum % 1 == 0) { // Checks to see if both team members have thrown
+            let temp = parseInt(document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML);
+            temp += value;
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp;
+          } else
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = value;
         }
         break;
       case "p1":
-        if (p1ThrowNum <= 4) {
-          p1ThrowNum++;
+        if (Math.floor(p1ThrowNum) <= 4) {
+          p1ThrowNum += 0.5;
           p1Scores.push(value);
           p1Tot[round] += value;
-          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = value;
+          if (p1ThrowNum % 1 == 0) {
+            let temp = parseInt(document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML);
+            temp += value;
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = temp;
+          } else
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = value;
         }
         break;
       }
@@ -113,15 +135,6 @@ function targetClick(player, value) {
       gam.appendChild(but);
     }
   }
-}
-
-// Makes sure both throws have same amount of throws
-function sameThrow() {
-  console.log("p0ThrowNum: " + p0ThrowNum);
-  console.log("p1ThrowNum: " + p1ThrowNum);
-  console.log("same throw: " + Math.abs(p0ThrowNum - p1ThrowNum))
-  if (Math.abs(p0ThrowNum - p1ThrowNum) <= 1) return true;
-  return false;
 }
 
 function nextRound() {
@@ -151,7 +164,7 @@ function nextRound() {
 function showEnd() {
   document.getElementById("game").style.display = "none";
 
-  //===============Player 1===============//
+  //===============Team 1===============//
   var p0Div = document.createElement("div");
   p0Div.id = "p0Scores";
 
@@ -163,14 +176,24 @@ function showEnd() {
 
   p0Div.appendChild(h);
 
+  // Adds throws to screen
+  let temp = 0;
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 10; j++) {
+      // If next set of throws set to first throw
+      if (j % 2 == 0)
+        temp = p0Scores[(i * 10) + j];
+      // Else add partners throw
+      else {
+        temp += p0Scores[(i * 10) + j];
 
-      p.innerHTML += p0Scores[(i * 5) + j] + ", ";
+        p.innerHTML += temp + ', ';
+      }
     }
     p0ScoreDiv.appendChild(p);
   }
+
 
   p0Div.appendChild(p0ScoreDiv);
 
@@ -193,7 +216,7 @@ function showEnd() {
 
   document.body.appendChild(mDiv);
 
-  //===============Player 2===============//
+  //===============Team 2===============//
   var p1Div = document.createElement("div");
   p1Div.id = "p1Scores";
 
@@ -205,11 +228,19 @@ function showEnd() {
 
   p1Div.appendChild(h);
 
+  temp = 0;
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 10; j++) {
+      // If next set of throws set to first throw
+      if (j % 2 == 0)
+        temp = p1Scores[(i * 10) + j];
+      // Else add partners throw
+      else {
+        temp += p1Scores[(i * 10) + j];
 
-      p.innerHTML += p1Scores[(i * 5) + j] + ", ";
+        p.innerHTML += temp + ', ';
+      }
     }
     p1ScoreDiv.appendChild(p);
   }
@@ -222,7 +253,7 @@ function showEnd() {
   but.innerHTML = "RESTART";
   but.onclick = function() {
     alert("Throw Better");
-    location.href = "game.html";
+    location.href = "doubles.html";
   }
 
   document.body.appendChild(but);
