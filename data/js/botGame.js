@@ -110,24 +110,26 @@ function targetClick(value) {
     }
   // Number button pressed
   } else {
-    throwNum++;
+    if (throwNum != 5) {
+      throwNum++;
 
-    // Adds value to pScores
-    pScores.push(value);
-    // Adds value to total
-    pTot[round] += value;
+      // Adds value to pScores
+      pScores.push(value);
+      // Adds value to total
+      pTot[round] += value;
 
-    // Same thing but for bot
-    if (flag) {
-      let bVal = botTurn();
-      bScores.push(bVal);
-      bTot[round] += bVal;
+      // Same thing but for bot
+      if (flag) {
+        let bVal = botTurn();
+        bScores.push(bVal);
+        bTot[round] += bVal;
+      }
+
+      // Displays the throws
+      let temp = (round * 5) + throwNum;
+      document.getElementById('paxe'.concat(throwNum)).innerHTML = pScores[temp-1];
+      document.getElementById('baxe'.concat(throwNum)).innerHTML = bScores[temp-1];
     }
-
-    // Displays the throws
-    let temp = (round * 5) + throwNum;
-    document.getElementById('paxe'.concat(throwNum)).innerHTML = pScores[temp-1];
-    document.getElementById('baxe'.concat(throwNum)).innerHTML = bScores[temp-1];
   }
 
   // Updates the total
@@ -136,17 +138,20 @@ function targetClick(value) {
 
   // Checks to see if round is done
   if (throwNum != 0 && throwNum % 5 == 0) {
-    let but = document.createElement("button");
-    but.innerHTML = "Next Round";
-    but.id = "nextBut";
-    but.onclick = function() {
-      moveRound();
+    let temp = document.getElementById("nextBut");
+    if (temp == null) {
+      let but = document.createElement("button");
+      but.innerHTML = "Next Round";
+      but.id = "nextBut";
+      but.onclick = function() {
+        moveRound();
+      }
+
+      let gam = document.getElementById("game");
+
+      gam.appendChild(but);
+      //window.setTimeout(moveRound, 1);
     }
-
-    let gam = document.getElementById("game");
-
-    gam.appendChild(but);
-    //window.setTimeout(moveRound, 1);
   }
 
   // Bot throws first if its up

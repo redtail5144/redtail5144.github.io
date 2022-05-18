@@ -30,43 +30,43 @@ function getNames(){
 
   //Title
   var tit = document.createElement("h2");
-  tit.innerHTML = "Enter Player Names";
+  tit.innerHTML = "Enter Team Names";
 
-  // Player 1 Name
-  var pl0Name = document.createElement("input");
-  pl0Name.setAttribute("type", "text");
-  pl0Name.value = ("Player 1");
-  var p0Lab = document.createElement("Label");
-  p0Lab.htmlFor = "text";
-  p0Lab.innerHTML = "<b>Player 1 Name: </b>";
+  // Team 1 Name
+  var t0Name = document.createElement("input");
+  t0Name.setAttribute("type", "text");
+  t0Name.value = ("Team 1");
+  var t0Lab = document.createElement("Label");
+  t0Lab.htmlFor = "text";
+  t0Lab.innerHTML = "<b>Team 1 Name: </b>";
 
-  // Player 2 Name
-  var pl1Name = document.createElement("input");
-  pl1Name.setAttribute("type", "text");
-  pl1Name.value = ("Player 2");
-  var p1Lab = document.createElement("Label");
-  p1Lab.htmlFor = "text";
-  p1Lab.innerHTML = "<br><b>Player 2 Name: </b>";
+  // Team 2 Name
+  var t1Name = document.createElement("input");
+  t1Name.setAttribute("type", "text");
+  t1Name.value = ("Team 2");
+  var t1Lab = document.createElement("Label");
+  t1Lab.htmlFor = "text";
+  t1Lab.innerHTML = "<br><b>Team 2 Name: </b>";
 
   // Disclaimer
   var disclaimer = document.createElement("p");
-  disclaimer.innerHTML = "Big Axe currently in development";
+  disclaimer.innerHTML = "Big Axe and Grimmace currently in development";
 
   // Submit Button
   var but = document.createElement("button");
   but.innerHTML = "Submit";
   but.type = "button";
   but.onclick = function() {
-    p0Name = pl0Name.value;
-    p1Name = pl1Name.value;
+    p0Name = t0Name.value;
+    p1Name = t1Name.value;
     displayGame();
   }
 
   form.appendChild(tit);
-  form.appendChild(p0Lab);
-  form.appendChild(pl0Name);
-  form.appendChild(p1Lab);
-  form.appendChild(pl1Name);
+  form.appendChild(t0Lab);
+  form.appendChild(t0Name);
+  form.appendChild(t1Lab);
+  form.appendChild(t1Name);
   form.appendChild(disclaimer);
   form.appendChild(but);
   document.body.appendChild(form);
@@ -87,42 +87,64 @@ function targetClick(player, value) {
       case "p0":
         // Makes sure there is something to undo
         if (p0Scores.length != 0) {
+          let last = p0Scores.pop();
           // Removes last element
-          p0Tot[round] -= p0Scores.pop();
+          p0Tot[round] -= last;
           // Updates ui
-          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = '-';
+          if (p0ThrowNum % 1 == 0) {
+            let temp2 = parseInt(document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML);
+            temp2 -= last;
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp2;
+          } else
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = '-';
           // Decrements number of throws
-          p0ThrowNum--;
+          p0ThrowNum -= 0.5;
         }
         break;
       case "p1":
         if (p1Scores.length != 0) {
-          p1Tot[round] -= p1Scores.pop();
-          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = '-';
-          p1ThrowNum--;
+          let last = p1Scores.pop()
+          p1Tot[round] -= last;
+          if (p1ThrowNum % 1 == 0) {
+            let temp2 = parseInt(document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML);
+            temp2 -= last;
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = temp2;
+          } else
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = '-';
+          p1ThrowNum -= 0.5;
         }
         break;
     }
   } else {
     switch (player) {
       case "p0":
-        if (p0ThrowNum <= 4) {
+        if (Math.floor(p0ThrowNum) <= 4) {
           // Increments number of throws
-          p0ThrowNum++;
+          p0ThrowNum += 0.5;
           // Adds value to array
           p0Scores.push(value);
           // Increases total
           p0Tot[round] += value;
           // Updates UI
-          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = value;
+          if (p0ThrowNum % 1 == 0) { // Checks to see if both team members have thrown
+            let temp = parseInt(document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML);
+            temp += value;
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp;
+          } else
+            document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = value;
         }
         break;
       case "p1":
-        if (p1ThrowNum <= 4) {
-          p1ThrowNum++;
+        if (Math.floor(p1ThrowNum) <= 4) {
+          p1ThrowNum += 0.5;
           p1Scores.push(value);
           p1Tot[round] += value;
-          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = value;
+          if (p1ThrowNum % 1 == 0) {
+            let temp = parseInt(document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML);
+            temp += value;
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = temp;
+          } else
+            document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = value;
         }
         break;
       }
@@ -146,15 +168,6 @@ function targetClick(player, value) {
       gam.appendChild(but);
     }
   }
-}
-
-// Makes sure both throws have same amount of throws
-function sameThrow() {
-  console.log("p0ThrowNum: " + p0ThrowNum);
-  console.log("p1ThrowNum: " + p1ThrowNum);
-  console.log("same throw: " + Math.abs(p0ThrowNum - p1ThrowNum))
-  if (Math.abs(p0ThrowNum - p1ThrowNum) <= 1) return true;
-  return false;
 }
 
 function nextRound() {
@@ -184,7 +197,7 @@ function nextRound() {
 function showEnd() {
   document.getElementById("game").style.display = "none";
 
-  //===============Player 1===============//
+  //===============Team 1===============//
   var p0Div = document.createElement("div");
   p0Div.id = "p0Scores";
 
@@ -196,14 +209,24 @@ function showEnd() {
 
   p0Div.appendChild(h);
 
+  // Adds throws to screen
+  let temp = 0;
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 10; j++) {
+      // If next set of throws set to first throw
+      if (j % 2 == 0)
+        temp = p0Scores[(i * 10) + j];
+      // Else add partners throw
+      else {
+        temp += p0Scores[(i * 10) + j];
 
-      p.innerHTML += p0Scores[(i * 5) + j] + ", ";
+        p.innerHTML += temp + ', ';
+      }
     }
     p0ScoreDiv.appendChild(p);
   }
+
 
   p0Div.appendChild(p0ScoreDiv);
 
@@ -226,7 +249,7 @@ function showEnd() {
 
   document.body.appendChild(mDiv);
 
-  //===============Player 2===============//
+  //===============Team 2===============//
   var p1Div = document.createElement("div");
   p1Div.id = "p1Scores";
 
@@ -238,11 +261,19 @@ function showEnd() {
 
   p1Div.appendChild(h);
 
+  temp = 0;
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 10; j++) {
+      // If next set of throws set to first throw
+      if (j % 2 == 0)
+        temp = p1Scores[(i * 10) + j];
+      // Else add partners throw
+      else {
+        temp += p1Scores[(i * 10) + j];
 
-      p.innerHTML += p1Scores[(i * 5) + j] + ", ";
+        p.innerHTML += temp + ', ';
+      }
     }
     p1ScoreDiv.appendChild(p);
   }
@@ -255,7 +286,7 @@ function showEnd() {
   but.innerHTML = "RESTART";
   but.onclick = function() {
     alert("Throw Better");
-    location.href = "game.html";
+    location.href = "doubles.html";
   }
 
   document.body.appendChild(but);
@@ -266,8 +297,6 @@ function displayGame() {
   document.getElementById("game").style.display = "block";
   document.getElementById("nameInput").style.display = "none";
 
-  console.log("p0Name: " + p0Name);
-  console.log("p1Name: " + p1Name);
   document.getElementById("name1").innerHTML = p0Name;
   document.getElementById("name1.1").innerHTML = p0Name;
 
