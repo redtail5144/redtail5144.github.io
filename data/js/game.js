@@ -3,6 +3,10 @@ var p0Tot = [0,0,0];
 var p1Scores = [];
 var p1Tot = [0,0,0];
 var round = 0;
+var p0ThrowNum = 0;
+var p1ThrowNum = p0ThrowNum;
+var p0Name = "Name 1";
+var p1Name = "Name 2";
 
 // Initalizes everything
 // for the game
@@ -12,8 +16,8 @@ function init() {
   p1Scores = [];
   p1Tot = [0,0,0];
   round = 0;
-  getNames();
-  document.getElementById("roundDisplay").innerHTML = "Round " + round;
+  //getNames();
+  document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
 }
 
 // Alert box that gets names of throwers
@@ -25,10 +29,14 @@ function getNames(){
     pName = prompt("Player 1 name:", "Player 1");
   } while (pName == null || pName == "")
   document.getElementById("name1").innerHTML = pName;
+  document.getElementById("name1.1").innerHTML = pName;
+  p0Name = pName;
   do {
     pName = prompt("Player 2 name:", "Player 2");
   } while (pName == null || pName == "")
   document.getElementById("name2").innerHTML = pName;
+  document.getElementById("name2.2").innerHTML = pName;
+  p1Name = pName;
 }
 
 // When target is clicked
@@ -36,76 +44,177 @@ function getNames(){
 // Player is which Player
 // 0 == left 1 == right
 function targetClick(player, value) {
-  let tot = parseInt(document.getElementById(player.concat("tot")).innerHTML);
   // Checks if the undo button was pressed
   if (value == "undo") {
+    // If next round button is there
+    // Remove it
+    let temp = document.getElementById("nextBut");
+    if (temp != null) temp.remove();
     switch (player) {
       case "p0":
-        p0Tot[round] -= p0Scores.pop();
+        // Makes sure there is something to undo
+        if (p0Scores.length != 0) {
+          // Removes last element
+          p0Tot[round] -= p0Scores.pop();
+          // Updates ui
+          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = '-';
+          // Decrements number of throws
+          p0ThrowNum--;
+        }
         break;
       case "p1":
-        p1Tot[round] -= p1Scores.pop();
+        if (p1Scores.length != 0) {
+          p1Tot[round] -= p1Scores.pop();
+          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = '-';
+          p1ThrowNum--;
+        }
         break;
     }
   } else {
     switch (player) {
       case "p0":
-        p0Scores.push(value);
-        p0Tot[round] += value;
+        if (p0ThrowNum <= 4) {
+          // Increments number of throws
+          p0ThrowNum++;
+          // Adds value to array
+          p0Scores.push(value);
+          // Increases total
+          p0Tot[round] += value;
+          // Updates UI
+          document.getElementById("p0axe".concat(p0ThrowNum)).innerHTML = value;
+        }
         break;
       case "p1":
-        p1Scores.push(value);
-        p1Tot[round] += value;
+        if (p1ThrowNum <= 4) {
+          p1ThrowNum++;
+          p1Scores.push(value);
+          p1Tot[round] += value;
+          document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = value;
+        }
         break;
       }
   }
 
-  console.log(p0Scores);
-  console.log(p1Scores);
+  document.getElementById("p0tot" + round).innerHTML = p0Tot[round];
+  document.getElementById("p1tot" + round).innerHTML = p1Tot[round];
 
-  document.getElementById("p0tot").innerHTML = p0Tot[round];
-  document.getElementById("p1tot").innerHTML = p1Tot[round];
-
-  console.log("p0tot: " + p0Tot[round]);
-  console.log("p1tot: " + p1Tot[round]);
-
-  //let tot = parseInt(document.getElementById(player.concat("tot")).innerHTML);
-  // Checks if the undo button was pressed
-  /*if (value == "undo") {
-    // If it was looks from the end for a number
-    // Then turns that number into a "-"
-    for (let i = 5; i >= 0; i--)
-      if (document.getElementById(player.concat("axe", i)).innerHTML != "-") {
-        tot -= parseInt(document.getElementById(player.concat("axe", i)).innerHTML);
-        document.getElementById(player.concat("axe", i)).innerHTML = "-";
-        i = -1;
+  // Create next round button if both players threw 5 times
+  if (p0ThrowNum == 5 && p1ThrowNum == 5) {
+    let temp = document.getElementById("nextBut");
+    if (temp == null) {
+      let but = document.createElement("button");
+      but.innerHTML = "Next Round";
+      but.id = "nextBut";
+      but.onclick = function() {
+        nextRound();
       }
-  } else {
-    // Upadtes the total
-    tot += value;
-  // Finds the first "-" <p> and changes
-  // it to value input
-    for (let i = 1; i <= 5; i++)
-      if (document.getElementById(player.concat("axe", i)).innerHTML == "-") {
-        document.getElementById(player.concat("axe", i)).innerHTML = value;
-        i = 6;
-      }
+
+      let gam = document.getElementById("game");
+      gam.appendChild(but);
     }
+  }
+}
 
-    document.getElementById(player.concat("tot")).innerHTML = tot;
+// Makes sure both throws have same amount of throws
+function sameThrow() {
+  console.log("p0ThrowNum: " + p0ThrowNum);
+  console.log("p1ThrowNum: " + p1ThrowNum);
+  console.log("same throw: " + Math.abs(p0ThrowNum - p1ThrowNum))
+  if (Math.abs(p0ThrowNum - p1ThrowNum) <= 1) return true;
+  return false;
+}
 
-    let flag = true;*/
+function nextRound() {
+  // Remove next round button
+  let temp = document.getElementById("nextBut");
+  temp.remove();
 
-  /* TODO: check to see if game is done
-  for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < 6; j++) {
-      if (document.getElementById("p".concat(i, "axe", j)).innerHTML == "-") {
-        i = 42069;
-        j = i;
-        flag = false;
-      }
+  if (round == 2) showEnd();
+  else {
+    // Resets thrownums
+    p0ThrowNum = 0;
+    p1ThrowNum = p0ThrowNum;
+
+    round++;
+
+    // Reset the display
+    document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
+
+    // Changes throws back to '-'
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById("p0axe".concat(i)).innerHTML = '-';
+      document.getElementById("p1axe".concat(i)).innerHTML = '-';
     }
-  }*/
+  }
+}
 
-  // TODO: do next roudn bull shit
+function showEnd() {
+  document.getElementById("game").style.display = "none";
+
+  //===============Player 1===============//
+  var p0Div = document.createElement("div");
+  p0Div.id = "p0Scores";
+
+  var p0ScoreDiv = document.createElement("div");
+  p0ScoreDiv.className = "throws";
+
+  let h = document.createElement("h2");
+  h.innerHTML = p0Name;
+
+  p0Div.appendChild(h);
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    for (let j = 0; j < 5; j++) {
+
+      p.innerHTML += p0Scores[(i * 5) + j] + ", ";
+    }
+    p0ScoreDiv.appendChild(p);
+  }
+
+  p0Div.appendChild(p0ScoreDiv);
+
+  document.body.appendChild(p0Div);
+
+  //================Totals================//
+  var mDiv = document.createElement("div");
+  mDiv.id = "endTots";
+
+  h = document.createElement("h2");
+  h.innerHTML = "Round Totals";
+
+  mDiv.appendChild(h);
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    p.innerHTML = p0Tot[i] + " : " + p1Tot[i];
+    mDiv.appendChild(p);
+  }
+
+  document.body.appendChild(mDiv);
+
+  //===============Player 2===============//
+  var p1Div = document.createElement("div");
+  p1Div.id = "p1Scores";
+
+  var p1ScoreDiv = document.createElement("div");
+  p1ScoreDiv.className = "throws";
+
+  h = document.createElement("h2");
+  h.innerHTML = p1Name;
+
+  p1Div.appendChild(h);
+
+  for (let i = 0; i < 3; i++) {
+    let p = document.createElement("p");
+    for (let j = 0; j < 5; j++) {
+
+      p.innerHTML += p1Scores[(i * 5) + j] + ", ";
+    }
+    p1ScoreDiv.appendChild(p);
+  }
+
+  p1Div.appendChild(p1ScoreDiv);
+
+  document.body.appendChild(p1Div);
 }
