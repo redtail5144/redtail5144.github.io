@@ -50,7 +50,7 @@ function getNames(){
 
   // Disclaimer
   var disclaimer = document.createElement("p");
-  disclaimer.innerHTML = "Big Axe and Grimmace currently in development";
+  disclaimer.innerHTML = "Big Axe currently in development";
 
   // Submit Button
   var but = document.createElement("button");
@@ -86,7 +86,7 @@ function targetClick(player, value) {
     switch (player) {
       case "p0":
         // Makes sure there is something to undo
-        if (p0Scores.length != 0) {
+        if (p0Scores.length != 0 && p0ThrowNum != 0) {
           let last = p0Scores.pop();
           // Removes last element
           p0Tot[round] -= last;
@@ -102,7 +102,7 @@ function targetClick(player, value) {
         }
         break;
       case "p1":
-        if (p1Scores.length != 0) {
+        if (p1Scores.length != 0 && p1ThrowNum != 0) {
           let last = p1Scores.pop()
           p1Tot[round] -= last;
           if (p1ThrowNum % 1 == 0) {

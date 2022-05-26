@@ -86,7 +86,7 @@ function targetClick(player, value) {
     switch (player) {
       case "p0":
         // Makes sure there is something to undo
-        if (p0Scores.length != 0) {
+        if (p0Scores.length != 0 && p0ThrowNum != 0) {
           // Removes last element
           p0Tot[round] -= p0Scores.pop();
           // Updates ui
@@ -96,7 +96,7 @@ function targetClick(player, value) {
         }
         break;
       case "p1":
-        if (p1Scores.length != 0) {
+        if (p1Scores.length != 0 && p1ThrowNum != 0) {
           p1Tot[round] -= p1Scores.pop();
           document.getElementById("p1axe".concat(p1ThrowNum)).innerHTML = '-';
           p1ThrowNum--;
