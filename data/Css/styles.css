@@ -120,35 +120,6 @@
   overflow: hidden;
 }
 
-.bullBut {
-  background-color: black;
-  color: white;
-}
-
-.redBut {
-  background-color: red;
-  color: white;
-}
-
-.blueBut {
-  background-color: blue;
-  color: white;
-}
-
-.missBut {
-  background-color: red;
-  color: white;
-}
-
-.clutchBut {
-  background-color: green;
-  color: white;
-}
-
-.undoBut {
-  background-color: purple;
-  color: white;
-}
 
 .buttonsRow {
     height: 100%;
