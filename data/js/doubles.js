@@ -50,7 +50,7 @@ function getNames(){
 
   // Disclaimer
   var disclaimer = document.createElement("p");
-  disclaimer.innerHTML = "Big Axe and Grimmace currently in development";
+  disclaimer.innerHTML = "Big Axe currently in development";
 
   // Submit Button
   var but = document.createElement("button");
