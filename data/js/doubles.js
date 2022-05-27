@@ -153,6 +153,9 @@ function targetClick(player, value) {
   document.getElementById("p0tot" + round).innerHTML = p0Tot[round];
   document.getElementById("p1tot" + round).innerHTML = p1Tot[round];
 
+  document.getElementById("t1PointDif").innerHTML = p0Tot[round] - p1Tot[round];
+  document.getElementById("t2PointDif").innerHTML = p1Tot[round] - p0Tot[round];
+
   // Create next round button if both players threw 5 times
   if (p0ThrowNum == 5 && p1ThrowNum == 5) {
     let temp = document.getElementById("nextBut");
@@ -185,6 +188,8 @@ function nextRound() {
 
     // Reset the display
     document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
+    document.getElementById("t1PointDif").innerHTML = "-";
+    document.getElementById("t2PointDif").innerHTML = "-";
 
     // Changes throws back to '-'
     for (let i = 1; i <= 5; i++) {
