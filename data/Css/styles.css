@@ -10,6 +10,7 @@
 .gThrows > div {
   border-style: solid;
   text-align: center;
+  font-size: x-large;
 }
 
 .gTots {
@@ -19,11 +20,13 @@
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   padding: 10px;
+  font-size: x-large;
 }
 
 .gTots > div {
   border-style: solid;
   text-align: center;
+  font-size: x-large;
 }
 
 .pName { grid-area: 1 / 1 / 2 / 2; }
@@ -47,6 +50,30 @@
 .bTot1 { grid-area: 2 / 2 / 3 / 3; }
 .bTot2 { grid-area: 2 / 3 / 3 / 4; }
 .bTot3 { grid-area: 2 / 4 / 3 / 5; }
+
+.t1Name { grid-area: 1 / 1 / 2 / 2; }
+.t1a1 { grid-area: 2 / 1 / 3 / 2; }
+.t1a2 { grid-area: 3 / 1 / 4 / 2; }
+.t1a3 { grid-area: 4 / 1 / 5 / 2; }
+.t1a4 { grid-area: 5 / 1 / 6 / 2; }
+.t1a5 { grid-area: 6 / 1 / 7 / 2; }
+.t1PointDif { grid-area: 7 / 1 / 8 / 2; }
+.t2Name { grid-area: 1 / 2 / 2 / 3; }
+.t2a1 { grid-area: 2 / 2 / 3 / 3; }
+.t2a2 { grid-area: 3 / 2 / 4 / 3; }
+.t2a3 { grid-area: 4 / 2 / 5 / 3; }
+.t2a4 { grid-area: 5 / 2 / 6 / 3; }
+.t2a5 { grid-area: 6 / 2 / 7 / 3; }
+.t2PointDif { grid-area: 7 / 2 / 8 / 3; }
+
+.t1NameTot { grid-area: 1 / 1 / 2 / 2; }
+.t1Tot1 { grid-area: 2 / 1 / 3 / 2; }
+.t1Tot2 { grid-area: 3 / 1 / 4 / 2; }
+.t1Tot3 { grid-area: 4 / 1 / 5 / 2; }
+.t2NameTot { grid-area: 1 / 2 / 2 / 3; }
+.t2Tot1 { grid-area: 2 / 2 / 3 / 3; }
+.t2Tot2 { grid-area: 3 / 2 / 4 / 3; }
+.t2Tot3 { grid-area: 4 / 2 / 5 / 3; }
 
 .scores {
   border-style: solid;
@@ -103,7 +130,7 @@
 .mid {
   display: table;
   flex-wrap: wrap;
-  padding: 1em;
+  padding: 0.5em;
   height: 100%;
   width: 33%;
   overflow: hidden;
@@ -115,7 +142,6 @@
   width: 33%;
   overflow: hidden;
 }
-
 
 .buttonsRow {
     height: 100%;
