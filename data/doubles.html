@@ -34,6 +34,10 @@ button {
   display: table;
   clear: both;
 }
+
+.button-wrapper {
+  width: 50%
+}
 </style>
 
 <script src = "js/doubles.js"></script>
@@ -56,33 +60,33 @@ button {
 
       <div id = "team1" class = "column">
         <h2 id = "t1Head">Team 1</h2>
-        <h3 id = t1ThrowCount style="text-align: center">Throw: 0/2</h2>
+        <h3 id = t1ThrowCount style="text-align: center">Throw:</h2>
         <div class = "buttonsRow">
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
                 <button onclick = "targetClick('p0', 'undo')">Undo</button>
             </div>
 
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper" >
                 <button onclick = "targetClick('p0', 0)">0</button>
             </div>
         </div>
 
         <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
+          <div class = "button-wrapper">
               <button onclick = "targetClick('p0', 1)" style = "background-color:blue;">1</button>
           </div>
 
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
                 <button onclick = "targetClick('p0', 3)" style = "background-color:red;">3</button>
             </div>
         </div>
 
         <div class = "buttonsRow">
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
               <button onclick = "targetClick('p0', 5)" style = "background-color:black; color:white">5</button>
             </div>
 
-            <div class = "button-wrapper" style="width: 50%;">
+            <div class = "button-wrapper">
               <button onclick = "targetClick('p0', 7)" style = "background-color:green;">7</button>
             </div>
           </div>
@@ -126,34 +130,34 @@ button {
 
       <div id = "team2" class = "column">
         <h2 id = "t2Head">Team 2</h2>
-        <h3 id = t2ThrowCount style="text-align: center">Throw: 0/2</h2>
+        <h3 id = t2ThrowCount style="text-align: center">Throw:</h2>
         <div class = "buttonsRow">
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
                 <button onclick = "targetClick('p1', 'undo')">Undo</button>
             </div>
 
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
                 <button onclick = "targetClick('p1', 0)">0</button>
             </div>
         </div>
 
         <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
+          <div class = "button-wrapper">
               <button onclick = "targetClick('p1', 1)" style = "background-color:blue;">1</button>
           </div>
 
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
                 <button onclick = "targetClick('p1', 3)" style = "background-color:red;">3</button>
             </div>
         </div>
 
         <div class = "buttonsRow">
 
-          <div class = "button-wrapper" style="width: 50%">
+          <div class = "button-wrapper">
             <button onclick = "targetClick('p1', 5)" style = "background-color:black; color: white;">5</button>
           </div>
 
-            <div class = "button-wrapper" style="width: 50%">
+            <div class = "button-wrapper">
               <button onclick = "targetClick('p1', 7)" style = "background-color:green;">7</button>
             </div>
 

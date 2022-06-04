@@ -146,13 +146,20 @@ function targetClick(player, value) {
           // Increases total
           p0Tot[round] += value;
 
-          // Updates UI
+          // Updates UI with score of current axe
           if (p0ThrowNum % 1 == 0) { // Checks to see if both team members have thrown
             let temp = parseInt(document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML);
             temp += value;
             document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp;
           } else
             document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = value;
+
+            if (p0ThrowNum % 1 == 0) {
+              let temp = document.getElementById("t1ThrowCount").innerHTML;
+              document.getElementById("t1ThrowCount").innerHTML = temp + "," + value;
+            } else {
+              document.getElementById("t1ThrowCount").innerHTML = "Throw: " + value;
+            }
         }
         break;
 
@@ -170,7 +177,7 @@ function targetClick(player, value) {
           // Increases total
           p1Tot[round] += value;
 
-          // Updates ui
+          // Updates ui with score of current axe
           if (p1ThrowNum % 1 == 0) { // Checks to see if both players have thrown
             let temp = parseInt(document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML);
             temp += value;
@@ -191,8 +198,8 @@ function targetClick(player, value) {
   document.getElementById("t2PointDif").innerHTML = p1Tot[round] - p0Tot[round];
 
   // Updates the throw count indicator
-  document.getElementById("t1ThrowCount").innerHTML = "Throw: " + (p0ThrowNum * 2) % 2 + "/2"
-  document.getElementById("t2ThrowCount").innerHTML = "Throw: " + (p1ThrowNum * 2) % 2 + "/2"
+  //document.getElementById("t1ThrowCount").innerHTML = "Throw: " + (p0ThrowNum * 2) % 2 + "/2"
+  //document.getElementById("t2ThrowCount").innerHTML = "Throw: " + (p1ThrowNum * 2) % 2 + "/2"
 
   // Create next round button if both players threw 5 times
   if (p0ThrowNum == 5 && p1ThrowNum == 5) {
