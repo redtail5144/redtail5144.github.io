@@ -153,13 +153,6 @@ function targetClick(player, value) {
             document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = temp;
           } else
             document.getElementById("p0axe".concat(Math.ceil(p0ThrowNum))).innerHTML = value;
-
-            if (p0ThrowNum % 1 == 0) {
-              let temp = document.getElementById("t1ThrowCount").innerHTML;
-              document.getElementById("t1ThrowCount").innerHTML = temp + "," + value;
-            } else {
-              document.getElementById("t1ThrowCount").innerHTML = "Throw: " + value;
-            }
         }
         break;
 
@@ -189,6 +182,30 @@ function targetClick(player, value) {
       }
   }
 
+  // Team 1 Throw indicator
+  if (p0ThrowNum % 1 == 0) {
+    if (p0ThrowNum > 0)
+      document.getElementById("t1ThrowCount").innerHTML =
+        "Throws: " + p0Scores[p0Scores.length - 2] + "," + p0Scores[p0Scores.length - 1];
+    else
+      document.getElementById("t1ThrowCount").innerHTML = "Throws: ";
+  } else {
+    document.getElementById("t1ThrowCount").innerHTML =
+      "Throws: " + p0Scores[p0Scores.length - 1];
+  }
+
+  // Team 2 Throw indicator
+  if (p1ThrowNum % 1 == 0) {
+    if (p1ThrowNum > 0)
+      document.getElementById("t2ThrowCount").innerHTML =
+        "Throws: " + p1Scores[p1Scores.length - 2] + "," + p1Scores[p1Scores.length - 1];
+    else
+      document.getElementById("t2ThrowCount").innerHTML = "Throws: ";
+  } else {
+    document.getElementById("t2ThrowCount").innerHTML =
+      "Throws: " + p1Scores[p1Scores.length - 1];
+  }
+
   // Updates round total
   document.getElementById("p0tot" + round).innerHTML = p0Tot[round];
   document.getElementById("p1tot" + round).innerHTML = p1Tot[round];
@@ -196,10 +213,6 @@ function targetClick(player, value) {
   // Calculates and updates point difference between players
   document.getElementById("t1PointDif").innerHTML = p0Tot[round] - p1Tot[round];
   document.getElementById("t2PointDif").innerHTML = p1Tot[round] - p0Tot[round];
-
-  // Updates the throw count indicator
-  //document.getElementById("t1ThrowCount").innerHTML = "Throw: " + (p0ThrowNum * 2) % 2 + "/2"
-  //document.getElementById("t2ThrowCount").innerHTML = "Throw: " + (p1ThrowNum * 2) % 2 + "/2"
 
   // Create next round button if both players threw 5 times
   if (p0ThrowNum == 5 && p1ThrowNum == 5) {
@@ -380,10 +393,10 @@ function displayGame() {
 
   document.getElementById("name1").innerHTML = p0Name;
   document.getElementById("name1.1").innerHTML = p0Name;
-    document.getElementById("t1Head").innerHTML = p0Name;
+  document.getElementById("t1Head").innerHTML = p0Name;
 
   document.getElementById("name2").innerHTML = p1Name;
   document.getElementById("name2.2").innerHTML = p1Name;
-    document.getElementById("t2Head").innerHTML = p1Name;
+  document.getElementById("t2Head").innerHTML = p1Name;
 
 }

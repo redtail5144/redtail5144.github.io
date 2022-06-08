@@ -42,6 +42,17 @@ button {
 
 <script src = "js/doubles.js"></script>
 <script src = "js/helpers.js"></script>
+<script>
+  function myFunction() {
+    let temp1 = document.getElementById("team1");
+    let temp2 = document.getElementById("team2");
+    swapElements(temp1, temp2);
+
+    temp1 = document.getElementById("t1Throws");
+    temp2 = document.getElementById("t2Throws");
+    swapElements(temp1, temp2);
+  }
+</script>
 
 <body onload = "init()">
 
@@ -54,6 +65,12 @@ button {
   </div>
 
   <div id = "game" style = "display: none;">
+    <div>
+      <button onclick = "myFunction()" style="width: 10%; margin: 0 auto; display: block;">
+        Swap Sides
+      </button
+    </div>
+
     <h2 id = "roundDisplay"></h2>
 
     <div class = "row">
