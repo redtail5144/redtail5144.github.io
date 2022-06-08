@@ -179,7 +179,7 @@ function targetClick(player, value) {
             document.getElementById("p1axe".concat(Math.ceil(p1ThrowNum))).innerHTML = value;
         }
         break;
-      }
+      } //
   }
 
   // Team 1 Throw indicator
@@ -224,6 +224,8 @@ function targetClick(player, value) {
       but.onclick = function() {
         nextRound();
       }
+      but.style.setProperty('position', 'fixed');
+      but.style.setProperty('bottom', '0');
 
       let gam = document.getElementById("game");
       gam.appendChild(but);
