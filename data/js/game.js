@@ -128,8 +128,13 @@ function targetClick(player, value) {
       }
   }
 
+  // Updates round total
   document.getElementById("p0tot" + round).innerHTML = p0Tot[round];
   document.getElementById("p1tot" + round).innerHTML = p1Tot[round];
+
+  // Calculates and updates point difference between players
+  document.getElementById("p1PointDif").innerHTML = p0Tot[round] - p1Tot[round];
+  document.getElementById("p2PointDif").innerHTML = p1Tot[round] - p0Tot[round];
 
   // Create next round button if both players threw 5 times
   if (p0ThrowNum == 5 && p1ThrowNum == 5) {
@@ -148,15 +153,6 @@ function targetClick(player, value) {
   }
 }
 
-// Makes sure both throws have same amount of throws
-function sameThrow() {
-  console.log("p0ThrowNum: " + p0ThrowNum);
-  console.log("p1ThrowNum: " + p1ThrowNum);
-  console.log("same throw: " + Math.abs(p0ThrowNum - p1ThrowNum))
-  if (Math.abs(p0ThrowNum - p1ThrowNum) <= 1) return true;
-  return false;
-}
-
 function nextRound() {
   // Remove next round button
   let temp = document.getElementById("nextBut");
@@ -167,6 +163,20 @@ function nextRound() {
     // Resets thrownums
     p0ThrowNum = 0;
     p1ThrowNum = p0ThrowNum;
+
+    // Highlights who won the round
+    // p0 won
+    if (p0Tot[round] > p1Tot[round]) {
+      console.log("p0 > p1");
+      document.getElementById("p0tot" + round).style.backgroundColor = "green";
+    // p1 won
+    } else if (p0Tot[round] < p1Tot[round]) {
+      document.getElementById("p1tot" + round).style.backgroundColor = "green";
+      console.log("p0 < p1");
+    // Tie
+    } else {
+      console.log("p0 = p1");
+    }
 
     round++;
 
@@ -179,14 +189,28 @@ function nextRound() {
       document.getElementById("p1axe".concat(i)).innerHTML = '-';
     }
   }
+
+  // Switches the elemnts sides
+  swapElements(document.getElementById("player1"),
+                document.getElementById("player2"));
+
+  swapElements(document.getElementById("p1Throws"),
+                document.getElementById("p2Throws"));
 }
 
 function showEnd() {
   document.getElementById("game").style.display = "none";
 
+  var rowDiv = document.createElement("div");
+  rowDiv.id = "rowDiv";
+  rowDiv.classList.add("row");
+
+  document.body.appendChild(rowDiv);
+
   //===============Player 1===============//
   var p0Div = document.createElement("div");
   p0Div.id = "p0Scores";
+  p0Div.classList.add("column");
 
   var p0ScoreDiv = document.createElement("div");
   p0ScoreDiv.className = "throws";
@@ -196,22 +220,23 @@ function showEnd() {
 
   p0Div.appendChild(h);
 
+  // Adds throws to screen
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 5; j++)
+      p.innerHTML += p0Scores[(i * 5) + j] + " ";
 
-      p.innerHTML += p0Scores[(i * 5) + j] + ", ";
-    }
     p0ScoreDiv.appendChild(p);
   }
 
   p0Div.appendChild(p0ScoreDiv);
 
-  document.body.appendChild(p0Div);
+  rowDiv.appendChild(p0Div);
 
   //================Totals================//
   var mDiv = document.createElement("div");
   mDiv.id = "endTots";
+  mDiv.classList.add("column");
 
   h = document.createElement("h2");
   h.innerHTML = "Round Totals";
@@ -224,11 +249,27 @@ function showEnd() {
     mDiv.appendChild(p);
   }
 
-  document.body.appendChild(mDiv);
+  let t1GTot = 0;
+  let t2GTot = 0
+
+  for (let i of p0Tot) {
+    t1GTot += i;
+  }
+
+  for (let i of p1Tot) {
+    t2GTot += i;
+  }
+
+  temp = document.createElement("p");
+  temp.innerHTML = t1GTot + ":" + t2GTot;
+  mDiv.appendChild(temp);
+
+  rowDiv.appendChild(mDiv);
 
   //===============Player 2===============//
   var p1Div = document.createElement("div");
   p1Div.id = "p1Scores";
+  p1Div.classList.add("column");
 
   var p1ScoreDiv = document.createElement("div");
   p1ScoreDiv.className = "throws";
@@ -238,18 +279,18 @@ function showEnd() {
 
   p1Div.appendChild(h);
 
+  // Adds throws to screen
   for (let i = 0; i < 3; i++) {
     let p = document.createElement("p");
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 5; j++)
+      p.innerHTML += p1Scores[(i * 5) + j] + " ";
 
-      p.innerHTML += p1Scores[(i * 5) + j] + ", ";
-    }
     p1ScoreDiv.appendChild(p);
   }
 
   p1Div.appendChild(p1ScoreDiv);
 
-  document.body.appendChild(p1Div);
+  rowDiv.appendChild(p1Div);
 
   let but = document.createElement("button");
   but.innerHTML = "RESTART";

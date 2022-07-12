@@ -244,6 +244,20 @@ function nextRound() {
     p0ThrowNum = 0;
     p1ThrowNum = p0ThrowNum;
 
+    // Highlights who won the round
+    // p0 won
+    if (p0Tot[round] > p1Tot[round]) {
+      console.log("p0 > p1");
+      document.getElementById("p0tot" + round).style.backgroundColor = "green";
+    // p1 won
+    } else if (p0Tot[round] < p1Tot[round]) {
+      document.getElementById("p1tot" + round).style.backgroundColor = "green";
+      console.log("p0 < p1");
+    // Tie
+    } else {
+      console.log("p0 = p1");
+    }
+
     round++;
 
     // Reset the display

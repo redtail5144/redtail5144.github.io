@@ -8,12 +8,51 @@
 </head>
 
 <style>
+
 h2 {
   text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-size: 25px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.button-wrapper {
+  width: 50%
 }
 </style>
 
 <script src = "js/game.js"></script>
+<script src = "js/helpers.js"></script>
+<script>
+  function myFunction() {
+    let temp1 = document.getElementById("player1");
+    let temp2 = document.getElementById("player2");
+    swapElements(temp1, temp2);
+
+    temp1 = document.getElementById("p1Throws");
+    temp2 = document.getElementById("p2Throws");
+    swapElements(temp1, temp2);
+  }
+</script>
 
 <body onload = "init()">
 
@@ -25,88 +64,121 @@ h2 {
     <a href = "doubles.html">Doubles</a>
   </div>
 
-  <div id = "game" style = "display: none">
+  <div id = "game" style = "display: none;">
+    <div>
+      <button onclick = "myFunction()" style="width: 10%; margin: 0 auto; display: block;">
+        Swap Sides
+      </button
+    </div>
+
     <h2 id = "roundDisplay"></h2>
 
-    <div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p0', 'undo')">Undo</button>
-          </div>
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p0', 0)">0</button>
-          </div>
-      </div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p0', 1)">1</button>
-          </div>
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p0', 3)">3</button>
-          </div>
-      </div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-            <button onclick = "targetClick('p0', 5)">5</button>
-          </div>
-          <div class = "button-wrapper" style="width: 50%">
-            <button onclick = "targetClick('p0', 7)">7</button>
-          </div>
-      </div>
-    </div>
+    <div class = "row">
 
-    <div class = "gThrows">
-      <div class = "pName" id = "name1">Name 1</div>
-      <div class = "pa1" id = "p0axe1">-</div>
-      <div class = "pa2" id = "p0axe2">-</div>
-      <div class = "pa3" id = "p0axe3">-</div>
-      <div class = "pa4" id = "p0axe4">-</div>
-      <div class = "pa5" id = "p0axe5">-</div>
-      <div class = "bName" id = "name2">Name 2</div>
-      <div class = "ba1" id = "p1axe1">-</div>
-      <div class = "ba2" id = "p1axe2">-</div>
-      <div class = "ba3" id = "p1axe3">-</div>
-      <div class = "ba4" id = "p1axe4">-</div>
-      <div class = "ba5" id = "p1axe5">-</div>
-    </div>
+      <div id = "player1" class = "column">
+        <h2 id = "p1Head">Player 1</h2>
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p0', 'undo')">Undo</button>
+            </div>
 
-    <div class="gTots">
-      <div class="pNameTot" id = "name1.1">Name 1</div>
-      <div class="pTot1" id = "p0tot0">-</div>
-      <div class="pTot2" id = "p0tot1">-</div>
-      <div class="pTot3" id = "p0tot2">-</div>
-      <div class="bNameTot" id = "name2.2">Name 2</div>
-      <div class="bTot1" id = "p1tot0">-</div>
-      <div class="bTot2" id = "p1tot1">-</div>
-      <div class="bTot3" id = "p1tot2">-</div>
-    </div>
+            <div class = "button-wrapper" >
+                <button onclick = "targetClick('p0', 0)">0</button>
+            </div>
+        </div>
 
-    <div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p1', 'undo')">Undo</button>
+        <div class = "buttonsRow">
+          <div class = "button-wrapper">
+              <button onclick = "targetClick('p0', 1)" style = "background-color:blue;">1</button>
           </div>
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p1', 0)">0</button>
-          </div>
-      </div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p1', 1)">1</button>
-          </div>
-          <div class = "button-wrapper" style="width: 50%">
-              <button onclick = "targetClick('p1', 3)">3</button>
-          </div>
-      </div>
-      <div class = "buttonsRow">
-          <div class = "button-wrapper" style="width: 50%">
-            <button onclick = "targetClick('p1', 5)">5</button>
-          </div>
-          <div class = "button-wrapper" style="width: 50%">
-            <button onclick = "targetClick('p1', 7)">7</button>
+
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p0', 3)" style = "background-color:red;">3</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+              <button onclick = "targetClick('p0', 5)" style = "background-color:black; color:white">5</button>
+            </div>
+
+            <div class = "button-wrapper">
+              <button onclick = "targetClick('p0', 7)" style = "background-color:green;">7</button>
+            </div>
           </div>
       </div>
-    </div>
+
+          <div class = "column">
+            <div class = "gThrows">
+              <div id = "p1Throws">
+                <div class = "p1Name" id = "name1">Name 1</div>
+                <div class = "t1a1" id = "p0axe1">-</div>
+                <div class = "t1a2" id = "p0axe2">-</div>
+                <div class = "t1a3" id = "p0axe3">-</div>
+                <div class = "t1a4" id = "p0axe4">-</div>
+                <div class = "t1a5" id = "p0axe5">-</div>
+                <div class = "t1PointDif" id = "p1PointDif">-</div>
+              </div>
+              <div id = "p2Throws">
+                <div class = "t2Name" id = "name2">Name 2</div>
+                <div class = "t2a1" id = "p1axe1">-</div>
+                <div class = "t2a2" id = "p1axe2">-</div>
+                <div class = "t2a3" id = "p1axe3">-</div>
+                <div class = "t2a4" id = "p1axe4">-</div>
+                <div class = "t2a5" id = "p1axe5">-</div>
+                <div class = "t2PointDif" id = "p2PointDif">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class = "column">
+            <div class="gTots">
+              <div class="p1NameTot" id = "name1.1">Name 1</div>
+              <div class="t1Tot1" id = "p0tot0">-</div>
+              <div class="t1Tot2" id = "p0tot1">-</div>
+              <div class="t1Tot3" id = "p0tot2">-</div>
+              <div class="t2NameTot" id = "name2.2">Name 2</div>
+              <div class="t2Tot1" id = "p1tot0">-</div>
+              <div class="t2Tot2" id = "p1tot1">-</div>
+              <div class="t2Tot3" id = "p1tot2">-</div>
+            </div>
+          </div>
+
+      <div id = "player2" class = "column">
+        <h2 id = "p2Head">Player 2</h2>
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p1', 'undo')">Undo</button>
+            </div>
+
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p1', 0)">0</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+          <div class = "button-wrapper">
+              <button onclick = "targetClick('p1', 1)" style = "background-color:blue;">1</button>
+          </div>
+
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p1', 3)" style = "background-color:red;">3</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+
+          <div class = "button-wrapper">
+            <button onclick = "targetClick('p1', 5)" style = "background-color:black; color: white;">5</button>
+          </div>
+
+            <div class = "button-wrapper">
+              <button onclick = "targetClick('p1', 7)" style = "background-color:green;">7</button>
+            </div>
+
+
+          </div>
+      </div>
 
   </div>
 
