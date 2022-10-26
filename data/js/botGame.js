@@ -38,7 +38,7 @@ function botSetup(name, win) {
   var black, red, blue, cCall, cHit;
 
   switch (name) {
-    case "That Bastard Guy"
+    case "That Bastard Guy":
       black = 85.3;
       red = 12.3;
       blue = 0;
