@@ -1,12 +1,27 @@
-var p0Scores = [];
-var p0Tot = [0,0,0];
-var p1Scores = [];
-var p1Tot = [0,0,0];
-var round = 0;
-var p0ThrowNum = 0;
-var p1ThrowNum = p0ThrowNum;
-var p0Name = "Name 1";
-var p1Name = "Name 2";
+//var p0Scores = []; // First Players scores
+//var p0Tot = [0,0,0]; // First Player's total
+//var p1Scores = []; // Second Player's Scores
+//var p1Tot = [0,0,0]; // Second Players Total
+var round = 0; // Current Round
+//var p0ThrowNum = 0; // First Players number of throws
+//var p1ThrowNum = p0ThrowNum; // Second Players number of throws
+//var p0Name = "Name 1"; // First Players Name
+//var p1Name = "Name 2"; // Second Player's Name
+var maxRound = 3; // Max Number of rounds in a game
+
+let p0 = {
+  scores: [],
+  tot: [],
+  name:"Name 1",
+  throwNum: 0
+};
+
+let p1 = {
+  scores: [],
+  tot: [],
+  name:"Name 2",
+  throwNum: 0
+};
 
 // Initalizes everything
 // for the game
@@ -48,6 +63,14 @@ function getNames(){
   t1Lab.htmlFor = "text";
   t1Lab.innerHTML = "<br><b>Team 2 Name: </b>";
 
+  // Number of rounds
+  var roundNum = document.createElement("input");
+  roundNum.setAttribute("type", "number");
+  roundNum.value = (3);
+  var roundNumLab = document.createElement("Label");
+  roundNumLab.htmlFor = "text";
+  roundNumLab.innerHTML = "<br><b>Number of Rounds: </b>"
+
   // Disclaimer
   var disclaimer = document.createElement("p");
   disclaimer.innerHTML = "Big Axe currently in development";
@@ -59,6 +82,7 @@ function getNames(){
   but.onclick = function() {
     p0Name = t0Name.value;
     p1Name = t1Name.value;
+    maxRound = roundNum.value;
     displayGame();
   }
 
@@ -67,6 +91,8 @@ function getNames(){
   form.appendChild(t0Name);
   form.appendChild(t1Lab);
   form.appendChild(t1Name);
+  form.appendChild(roundNumLab);
+  form.appendChild(roundNum);
   form.appendChild(disclaimer);
   form.appendChild(but);
   document.body.appendChild(form);
@@ -238,7 +264,7 @@ function nextRound() {
   let temp = document.getElementById("nextBut");
   temp.remove();
 
-  if (round == 2) showEnd();
+  if (round == maxRound - 1) showEnd();
   else {
     // Resets thrownums
     p0ThrowNum = 0;
@@ -247,15 +273,12 @@ function nextRound() {
     // Highlights who won the round
     // p0 won
     if (p0Tot[round] > p1Tot[round]) {
-      console.log("p0 > p1");
       document.getElementById("p0tot" + round).style.backgroundColor = "green";
     // p1 won
     } else if (p0Tot[round] < p1Tot[round]) {
       document.getElementById("p1tot" + round).style.backgroundColor = "green";
-      console.log("p0 < p1");
     // Tie
     } else {
-      console.log("p0 = p1");
     }
 
     round++;
