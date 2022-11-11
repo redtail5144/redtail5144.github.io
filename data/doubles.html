@@ -41,20 +41,21 @@ button {
 </style>
 
 <script src = "js/doubles.js"></script>
-<script src = "js/helpers.js"></script>
+<script src = "js/baseGame.js"></script>
+
 <script>
   function myFunction() {
-    let temp1 = document.getElementById("team1");
-    let temp2 = document.getElementById("team2");
+    let temp1 = document.getElementById("player1");
+    let temp2 = document.getElementById("player2");
     swapElements(temp1, temp2);
 
-    temp1 = document.getElementById("t1Throws");
-    temp2 = document.getElementById("t2Throws");
+    temp1 = document.getElementById("p1Throws");
+    temp2 = document.getElementById("p2Throws");
     swapElements(temp1, temp2);
   }
 </script>
 
-<body onload = "init()">
+<body onload = "start()">
 
   <div class = "topnav">
     <a href = "../index.html">Home</a>
@@ -75,9 +76,9 @@ button {
 
     <div class = "row">
 
-      <div id = "team1" class = "column">
-        <h2 id = "t1Head">Team 1</h2>
-        <h3 id = t1ThrowCount style="text-align: center">Throw:</h2>
+      <div id = "player1" class = "column">
+        <h2 id = "p1Head">Team 1</h2>
+        <h3 id = p0ThrowCount style="text-align: center">Throw:</h2>
         <div class = "buttonsRow">
             <div class = "button-wrapper">
                 <button onclick = "targetClick('p0', 'undo')">Undo</button>
@@ -111,43 +112,43 @@ button {
 
           <div class = "column">
             <div class = "gThrows">
-              <div id = "t1Throws">
-                <div class = "t1Name" id = "name1">Name 1</div>
-                <div class = "t1a1" id = "p0axe1">-</div>
-                <div class = "t1a2" id = "p0axe2">-</div>
-                <div class = "t1a3" id = "p0axe3">-</div>
-                <div class = "t1a4" id = "p0axe4">-</div>
-                <div class = "t1a5" id = "p0axe5">-</div>
-                <div class = "t1PointDif" id = "t1PointDif">-</div>
+              <div id = "p1Throws">
+                <div class = "p1Name" id = "name1">Name 1</div>
+                <div class = "p1a1" id = "p0axe1">-</div>
+                <div class = "p1a2" id = "p0axe2">-</div>
+                <div class = "p1a3" id = "p0axe3">-</div>
+                <div class = "p1a4" id = "p0axe4">-</div>
+                <div class = "p1a5" id = "p0axe5">-</div>
+                <div class = "p0PointDif" id = "p0PointDif">-</div>
               </div>
-              <div id = "t2Throws">
-                <div class = "t2Name" id = "name2">Name 2</div>
-                <div class = "t2a1" id = "p1axe1">-</div>
-                <div class = "t2a2" id = "p1axe2">-</div>
-                <div class = "t2a3" id = "p1axe3">-</div>
-                <div class = "t2a4" id = "p1axe4">-</div>
-                <div class = "t2a5" id = "p1axe5">-</div>
-                <div class = "t2PointDif" id = "t2PointDif">-</div>
+              <div id = "p2Throws">
+                <div class = "p2Name" id = "name2">Name 2</div>
+                <div class = "p2a1" id = "p1axe1">-</div>
+                <div class = "p2a2" id = "p1axe2">-</div>
+                <div class = "p2a3" id = "p1axe3">-</div>
+                <div class = "p2a4" id = "p1axe4">-</div>
+                <div class = "p2a5" id = "p1axe5">-</div>
+                <div class = "p1PointDif" id = "p1PointDif">-</div>
               </div>
             </div>
           </div>
 
           <div class = "column">
             <div class="gTots">
-              <div class="t1NameTot" id = "name1.1">Name 1</div>
-              <div class="t1Tot1" id = "p0tot0">-</div>
-              <div class="t1Tot2" id = "p0tot1">-</div>
-              <div class="t1Tot3" id = "p0tot2">-</div>
-              <div class="t2NameTot" id = "name2.2">Name 2</div>
-              <div class="t2Tot1" id = "p1tot0">-</div>
-              <div class="t2Tot2" id = "p1tot1">-</div>
-              <div class="t2Tot3" id = "p1tot2">-</div>
+              <div class="p1NameTot" id = "name1.1">Name 1</div>
+              <div class="p1Top1" id = "p0tot0">-</div>
+              <div class="p1Tot2" id = "p0tot1">-</div>
+              <div class="p1Tot3" id = "p0tot2">-</div>
+              <div class="p2NameTot" id = "name2.2">Name 2</div>
+              <div class="p2Top1" id = "p1tot0">-</div>
+              <div class="p2Tot2" id = "p1tot1">-</div>
+              <div class="p2Tot3" id = "p1tot2">-</div>
             </div>
           </div>
 
-      <div id = "team2" class = "column">
-        <h2 id = "t2Head">Team 2</h2>
-        <h3 id = t2ThrowCount style="text-align: center">Throw:</h2>
+      <div id = "player2" class = "column">
+        <h2 id = "p2Head">Team 2</h2>
+        <h3 id = p1ThrowCount style="text-align: center">Throw:</h2>
         <div class = "buttonsRow">
             <div class = "button-wrapper">
                 <button onclick = "targetClick('p1', 'undo')">Undo</button>
