@@ -26,4 +26,6 @@ function targetClick(player, value) {
     addPoints(p0, value, 1);
     else
       addPoints(p1, value, 1);
+
+  updateGame(p0, p1);
 }

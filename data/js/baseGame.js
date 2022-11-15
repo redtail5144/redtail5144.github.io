@@ -185,11 +185,15 @@ function addPoints(player, value, throwInc) {
 
   // Updates round total
   document.getElementById(player.id + "tot" + round).innerHTML = player.tot[round];
+}
 
-  // Calculates and updates point difference between players
-  // TODO: Fix this / Maybe move to new function
-  // document.getElementById("p1PointDif").innerHTML = p0.tot[round] - p1.tot[round];
-  // document.getElementById("p2PointDif").innerHTML = p1.tot[round] - p0.tot[round];
+// Updates point difference and displays next round button if round over
+// p0 Player 0 object
+// p1 Player 1 object
+function updateGame(p0,p1) {
+  // Calculates and displays point difference
+  document.getElementById("p0PointDif").innerHTML = p0.tot[round] - p1.tot[round];
+  document.getElementById("p1PointDif").innerHTML = p1.tot[round] - p0.tot[round];
 
   // Create next round button if both players threw 5 times
   // TODO: Fix This / Maybe move to new function
