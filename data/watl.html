@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel = "icon" href = "images/icon.png">
+  <link rel = "stylesheet" href = "Css/styles.css">
+  <title>Axe Trax</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+
+h2 {
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-size: 25px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.button-wrapper {
+  width: 50%
+}
+
+.parent {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: repeat(12, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 2 / 2 / 3; }
+.div3 { grid-area: 2 / 1 / 3 / 2; }
+.div4 { grid-area: 2 / 2 / 3 / 3; }
+.div5 { grid-area: 3 / 1 / 4 / 2; }
+.div6 { grid-area: 3 / 2 / 4 / 3; }
+.div7 { grid-area: 4 / 1 / 5 / 2; }
+.div8 { grid-area: 4 / 2 / 5 / 3; }
+.div9 { grid-area: 5 / 1 / 6 / 2; }
+.div10 { grid-area: 5 / 2 / 6 / 3; }
+.div11 { grid-area: 6 / 1 / 7 / 2; }
+.div12 { grid-area: 6 / 2 / 7 / 3; }
+.div13 { grid-area: 7 / 1 / 8 / 2; }
+.div14 { grid-area: 7 / 2 / 8 / 3; }
+.div15 { grid-area: 8 / 1 / 9 / 2; }
+.div16 { grid-area: 8 / 2 / 9 / 3; }
+.div17 { grid-area: 9 / 1 / 10 / 2; }
+.div18 { grid-area: 9 / 2 / 10 / 3; }
+.div19 { grid-area: 10 / 1 / 11 / 2; }
+.div20 { grid-area: 10 / 2 / 11 / 3; }
+.div21 { grid-area: 11 / 1 / 12 / 2; }
+.div22 { grid-area: 11 / 2 / 12 / 3; }
+.div23 { grid-area: 12 / 1 / 13 / 2; }
+.div24 { grid-area: 12 / 2 / 13 / 3; }
+
+</style>
+
+<script src = "js/watl.js"></script>
+
+<script>
+  function myFunction() {
+    let temp1 = document.getElementById("player1");
+    let temp2 = document.getElementById("player2");
+    swapElements(temp1, temp2);
+
+    temp1 = document.getElementById("p0Throws");
+    temp2 = document.getElementById("p1Throws");
+    swapElements(temp1, temp2);
+  }
+</script>
+
+<body onload = "start()">
+
+  <div class = "topnav">
+    <a href = "../index.html">Home</a>
+    <a href = "round1.html">Round 1</a>
+    <a href = "botGame.html">Ai Game</a>
+    <a href = "game.html">IATF</a>
+    <a class = "active" href = "watl.html">WATL</a>
+    <a href = "doubles.html">Doubles</a>
+  </div>
+
+  <div id = "game" style = "display: none;">
+    <div>
+      <button onclick = "myFunction()" style="width: 10%; margin: 0 auto; display: block;">
+        Swap Sides
+      </button
+    </div>
+
+    <h2 id = "roundDisplay"></h2>
+
+    <div class = "row">
+
+      <div id = "player1" class = "column">
+        <h2 id = "p1Head">Player 1</h2>
+        <h3 id = p0ThrowCount style="text-align: center">Throw:</h2>
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p0', 'undo')">Undo</button>
+            </div>
+
+            <div class = "button-wrapper" >
+                <button id = "p00" onclick = "targetClick('p0', 0)">0</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+          <div class = "button-wrapper">
+              <button id = "p01" onclick = "targetClick('p0', 1)">1</button>
+          </div>
+
+            <div class = "button-wrapper">
+                <button id = "p03"  onclick = "targetClick('p0', 2)">2</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+              <button id = "p05"  onclick = "targetClick('p0', 3)">3</button>
+            </div>
+
+            <div class = "button-wrapper">
+              <button id = "p07"  onclick = "targetClick('p0', 4)">4</button>
+            </div>
+          </div>
+          <div class = "button-wrapper">
+              <button onclick = "targetClick('p0', 5)">5</button>
+          </div>
+
+          <div class = "button-wrapper" >
+              <button id = "p00" onclick = "targetClick('p0', 6)">6</button>
+          </div>
+
+      <div class = "buttonsRow">
+        <div class = "button-wrapper">
+            <button id = "p01" onclick = "targetClick('p0', 8)">8</button>
+        </div>
+      </div>
+
+  </div>
+
+          <div class = "column">
+            <div class = "gThrows">
+              <div id = "p0Throws">
+                <div class = "div1" id = "name1">Name 1</div>
+                <div class = "div3" id = "p0a1">-</div>
+                <div class = "div5" id = "p0a2">-</div>
+                <div class = "div7" id = "p0a3">-</div>
+                <div class = "div9" id = "p0a4">-</div>
+                <div class = "div11" id = "p0a5">-</div>
+                <div class = "div13" id = "p0a6">-</div>
+                <div class = "div15" id = "p0a7">-</div>
+                <div class = "div17" id = "p0a8">-</div>
+                <div class = "div19" id = "p0a9">-</div>
+                <div class = "div21" id = "p0a10">-</div>
+                <div class = "div23" id = "p0Tot">-</div>
+            </div>
+
+              <div id = "p1Throws">
+                <div class = "div2" id = "name2">Name 2</div>
+                <div class = "div4" id = "p1a1">-</div>
+                <div class = "div6" id = "p1a2">-</div>
+                <div class = "div8" id = "p1a3">-</div>
+                <div class = "div10" id = "p1a4">-</div>
+                <div class = "div12" id = "p1a5">-</div>
+                <div class = "div14" id = "p1a6">-</div>
+                <div class = "div16" id = "p1a7">-</div>
+                <div class = "div18" id = "p1a8">-</div>
+                <div class = "div20" id = "p1a9">-</div>
+                <div class = "div22" id = "p1a10">-</div>
+                <div class = "div24" id = "p1Tot">-</div>
+              </div>
+            </div>
+          </div>
+
+      <div id = "player2" class = "column">
+        <h2 id = "p2Head">Player 1</h2>
+        <h3 id = p1ThrowCount style="text-align: center">Throw:</h2>
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+                <button onclick = "targetClick('p1', 'undo')">Undo</button>
+            </div>
+
+            <div class = "button-wrapper" >
+                <button id = "p10" onclick = "targetClick('p1', 0)">0</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+          <div class = "button-wrapper">
+              <button id = "p11" onclick = "targetClick('p1', 1)">1</button>
+          </div>
+
+            <div class = "button-wrapper">
+                <button id = "p13"  onclick = "targetClick('p1', 2)">2</button>
+            </div>
+        </div>
+
+        <div class = "buttonsRow">
+            <div class = "button-wrapper">
+              <button id = "p15"  onclick = "targetClick('p1', 3)">3</button>
+            </div>
+
+            <div class = "button-wrapper">
+              <button id = "p17"  onclick = "targetClick('p1', 4)">4</button>
+            </div>
+          </div>
+          <div class = "button-wrapper">
+              <button onclick = "targetClick('p1', 5)">5</button>
+          </div>
+
+          <div class = "button-wrapper" >
+              <button id = "p10" onclick = "targetClick('p1', 6)">6</button>
+          </div>
+
+      <div class = "buttonsRow">
+        <div class = "button-wrapper">
+            <button id = "p11" onclick = "targetClick('p1', 8)">8</button>
+        </div>
+      </div>
+      </div>
+
+  </div>
+
+</body>
+
+</html>
