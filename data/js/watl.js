@@ -1,4 +1,23 @@
-//Boolean bigStick = false; // Flag for if playing big axe
+// Player objects
+let p0 = {
+  id: "p0", // player id
+  scores: [], // array of player scores
+  tot: 0, // array of totals for each round
+  name:"Name 1", // player name
+  throwNum: 0 // number of throws in a round
+};
+
+let p1 = {
+  id: "p1", // player id
+  scores: [], // array of player scores
+  tot: 0, // array of totals for each round
+  name:"Name 2", // player name
+  throwNum: 0 // number of throws in a round
+};
+
+function start() {
+  init("Player 1 Name: " , "Player 2 Name: ", p0, p1, 3);
+}
 
 // Initalizes the game
 // n1 Text for player 1 name entry
@@ -9,10 +28,8 @@
 function init(n1, n2, p0, p1, maxRound) {
   p0.scores = []; // Sets scores to empty array
   p1.scores = []; // Sets scores to empty array
-  p0.tot = [0,0,0];
-  p1.tot = [0,0,0];
-  p0.roundsWon = 0;
-  p1.roundsWon = 0;
+  p0.tot = 0;
+  p1.tot = 0;
   getNames(n1, n2, p0, p1); // Gets the names of players
   // Displays the round
   document.getElementById("roundDisplay").innerHTML = "Round " + (1);
@@ -50,7 +67,7 @@ function getNames(n1, n2, p0, p1){
 
   // Disclaimer
   var disclaimer = document.createElement("p");
-  disclaimer.innerHTML = "IATF game. Big Axe currently in development";
+  disclaimer.innerHTML = "WATL game. Tie Breaker in development";
 
   // Submit Button
   var but = document.createElement("button");
@@ -82,11 +99,18 @@ function displayGame(p0, p1) {
 
   document.getElementById("p1Head").innerHTML = p0.name;
   document.getElementById("name1").innerHTML = p0.name;
-  document.getElementById("name1.1").innerHTML = p0.name;
 
   document.getElementById("p2Head").innerHTML = p1.name;
   document.getElementById("name2").innerHTML = p1.name;
-  document.getElementById("name2.2").innerHTML = p1.name;
+}
+
+function targetClick(player, value) {
+  if (player == "p0")
+    addPoints(p0, value, 1);
+    else
+      addPoints(p1, value, 1);
+
+  updateGame(p0, p1);
 }
 
 // Adds points to players scores and totals
@@ -106,7 +130,7 @@ function addPoints(player, value, throwInc) {
 
     // Removes last element
     let last = player.scores.pop();
-    player.tot[round] -= last;
+    player.tot -= last;
 
     // Updates ui
 
@@ -116,15 +140,15 @@ function addPoints(player, value, throwInc) {
       // Gets value currently displays and subtracts it from current throw
       // Only used in doubles
       let temp2 = parseInt(document.getElementById(player.id +
-        "axe".concat(Math.ceil(player.throwNum))).innerHTML);
+        "a".concat(Math.ceil(player.throwNum))).innerHTML);
       temp2 -= last;
       document.getElementById(player.id +
-        "axe".concat(Math.ceil(player.throwNum))).innerHTML = temp2;
+        "a".concat(Math.ceil(player.throwNum))).innerHTML = temp2;
       // If not first value or not doubles
       } else {
             // Replaces value with '-'
             document.getElementById(player.id +
-              "axe".concat(Math.ceil(player.throwNum))).innerHTML = '-';
+              "a".concat(Math.ceil(player.throwNum))).innerHTML = '-';
           }
           // Decrements number of throws
           player.throwNum -= throwInc;
@@ -132,7 +156,7 @@ function addPoints(player, value, throwInc) {
   // For non undo inputs
   } else {
         // Makes sure 5 axes havn't been thrown
-        if (Math.floor(player.throwNum) <= 4) {
+        if (Math.floor(player.throwNum) <= 9) {
           // Increments number of throws
           player.throwNum += throwInc;
 
@@ -140,7 +164,7 @@ function addPoints(player, value, throwInc) {
           player.scores.push(value);
 
           // Increases total
-          player.tot[round] += value;
+          player.tot += value;
 
           // Updates UI with score of current axe
 
@@ -148,15 +172,15 @@ function addPoints(player, value, throwInc) {
           if (player.throwNum % 1 == 0 && throwInc != 1) {
             // Gets value displayed and adds value
             let temp = parseInt(document.getElementById(player.id +
-              "axe".concat(Math.ceil(player.throwNum))).innerHTML);
+              "a".concat(Math.ceil(player.throwNum))).innerHTML);
             temp += value;
             document.getElementById(player.id +
-              "axe".concat(Math.ceil(player.throwNum))).innerHTML = temp;
+              "a".concat(Math.ceil(player.throwNum))).innerHTML = temp;
           // If no team member has thrown or not doubles
           } else {
             // Dispalys the value
             document.getElementById(player.id +
-              "axe".concat(Math.ceil(player.throwNum))).innerHTML = value;
+              "a".concat(Math.ceil(player.throwNum))).innerHTML = value;
           }
         }
       }
@@ -175,7 +199,7 @@ function addPoints(player, value, throwInc) {
     } else if (throwInc == 1 && player.throwNum > 0) {
     // Displays last value inputted
     document.getElementById(player.id + "ThrowCount").innerHTML =
-      "Throws: " + player.scores[player.scores.length - 1];
+      "Throw: " + player.throwNum;
     }
     // If no values inputted do not display anything
     else
@@ -188,28 +212,23 @@ function addPoints(player, value, throwInc) {
   }
 
   // Updates round total
-  document.getElementById(player.id + "tot" + round).innerHTML = player.tot[round];
+  document.getElementById(player.id + "Tot").innerHTML = player.tot;
 }
 
 // Updates point difference and displays next round button if round over
 // p0 Player 0 object
 // p1 Player 1 object
-function updateGame(p0,p1) {
-  // Calculates and displays point difference
-  document.getElementById("p0PointDif").innerHTML = p0.tot[round] - p1.tot[round];
-  document.getElementById("p1PointDif").innerHTML = p1.tot[round] - p0.tot[round];
-
+function updateGame(p0, p1) {
   // Create next round button if both players threw 5 times
   // TODO: Fix This / Maybe move to new function
-  if (p0.throwNum == 5 && p1.throwNum == 5) {
+  if (p0.throwNum == 10 && p1.throwNum == 10) {
     let temp = document.getElementById("nextBut");
     if (temp == null) {
       let but = document.createElement("button");
-      but.innerHTML = "Next Round";
+      but.innerHTML = "Show Stats";
       but.id = "nextBut";
       but.onclick = function() {
-        round++;
-        nextRound(p0, p1, round);
+        showEnd(p0, p1);
       }
       but.style.setProperty('position', 'fixed');
       but.style.setProperty('bottom', '0');
@@ -220,52 +239,29 @@ function updateGame(p0,p1) {
   }
 }
 
-// Moves game to next round
+// Displays the end stats of game
 // p0 Player 0 object
 // p1 Player 1 object
-// round Current Round
-function nextRound(p0, p1, round) {
-  // Remove next round button
-  let temp = document.getElementById("nextBut");
-  temp.remove();
+function showEnd(p0, p1) {
+  // Clears game UI
+  document.getElementById("game").style.display = "none";
 
-  // Checks if game is over
-  if (round - 1 == 2)
-    if (p0.roundsWon == p1.roundsWon)
-      //bigAxe(p0, p1);
-      showEnd(p0, p1);
-    // Display end if game over
-    else
-      showEnd(p0, p1);
-  // If game not over
-  else {
-    // Resets thrownums
-    p0.throwNum = 0;
-    p1.throwNum = p0.throwNum;
+  console.log(p0.name + ": " + p0.tot);
+  console.log(p1.name + ": " + p1.tot);
 
-    // Highlights who won the round
-    // p0 won
-    if (p0.tot[round - 1] > p1.tot[round - 1]) {
-      document.getElementById("p0tot" + (round - 1)).style.backgroundColor = "green";
-      p0.roundsWon++;
-    }
-    // p1 won
-    else if (p0.tot[round - 1] < p1.tot[round - 1]) {
-      document.getElementById("p1tot" + (round - 1)).style.backgroundColor = "green";
-      p1.roundsWon++;
-    // Tie
-    } else {
-    }
+
+  let p = document.createElement("h1");
+  p.innerHTML = p0.name + ": " + p0.tot + " | " + p1.name + ": " + p1.tot;
+  document.body.appendChild(p);
+
+  let but = document.createElement("button");
+  but.innerHTML = "RESTART";
+  but.onclick = function() {
+    alert("Throw Better");
+    location.href = "watl.html";
   }
 
-  clearDisplay(round);
-
-  // Switches the elemnts sides
-  swapElements(document.getElementById("player1"),
-                document.getElementById("player2"));
-
-  swapElements(document.getElementById("p1Throws"),
-                document.getElementById("p2Throws"));
+  document.body.appendChild(but);
 }
 
 // Swaps two elements in UI
@@ -276,141 +272,4 @@ function swapElements(e1, e2) {
   e1.parentNode.insertBefore(e2Copy, e1);
   e2.parentNode.insertBefore(e1, e2);
   e2.parentNode.replaceChild(e2, e2Copy);
-}
-
-// Displays the end stats of game
-// p0 Player 0 object
-// p1 Player 1 object
-function showEnd(p0, p1) {
-  // Clears game UI
-  document.getElementById("game").style.display = "none";
-
-  // Creates div for elements
-  var rowDiv = document.createElement("div");
-  rowDiv.id = "rowDiv";
-  rowDiv.classList.add("row");
-
-  document.body.appendChild(rowDiv);
-
-  //===============Player 0===============//
-  var p0Div = document.createElement("div");
-  p0Div.id = "p0Scores";
-  p0Div.classList.add("column");
-
-  var p0ScoreDiv = document.createElement("div");
-  p0ScoreDiv.className = "throws";
-
-  let h = document.createElement("h2");
-  h.innerHTML = p0.name;
-
-  p0Div.appendChild(h);
-
-  // Adds throws to screen
-  // Goes through each round
-  for (let i = 0; i < p0.tot.length; i++) {
-    // temp <p> for display throw
-    let p = document.createElement("p");
-    // makes sure it only displays current round
-    for (let j = 0; j < (p0.scores.length / p0.tot.length); j++)
-      p.innerHTML += p0.scores[(i * (p0.scores.length / p0.tot.length)) + j] + " ";
-
-    p0ScoreDiv.appendChild(p);
-  }
-
-  p0Div.appendChild(p0ScoreDiv);
-
-  rowDiv.appendChild(p0Div);
-
-  //================Totals================//
-  var mDiv = document.createElement("div");
-  mDiv.id = "endTots";
-  mDiv.classList.add("column");
-
-  h = document.createElement("h2");
-  h.innerHTML = "Round Totals";
-
-  mDiv.appendChild(h);
-
-  // Displays both players totals against each other
-  for (let i = 0; i < p0.tot.length; i++) {
-    let p = document.createElement("p");
-    p.innerHTML = p0.tot[i] + " : " + p1.tot[i];
-    mDiv.appendChild(p);
-  }
-
-  // Used for overall game score
-  let t1GTot = 0;
-  let t2GTot = 0
-
-  for (let i of p0.tot) {
-    t1GTot += i;
-  }
-
-  for (let i of p1.tot) {
-    t2GTot += i;
-  }
-
-  temp = document.createElement("p");
-  temp.innerHTML = t1GTot + ":" + t2GTot;
-  mDiv.appendChild(temp);
-
-  rowDiv.appendChild(mDiv);
-
-  //===============Player 2===============//
-  var p1Div = document.createElement("div");
-  p1Div.id = "p1Scores";
-  p1Div.classList.add("column");
-
-  var p1ScoreDiv = document.createElement("div");
-  p1ScoreDiv.className = "throws";
-
-  h = document.createElement("h2");
-  h.innerHTML = p1.name;
-
-  p1Div.appendChild(h);
-
-  // Adds throws to screen
-  // Goes through each round
-  for (let i = 0; i < p1.tot.length; i++) {
-    // Temp <p> for displaying throws
-    let p = document.createElement("p");
-    // Makes sure only current round is displayed
-    for (let j = 0; j < (p1.scores.length / p1.tot.length); j++)
-      p.innerHTML += p1.scores[(i * (p1.scores.length / p1.tot.length)) + j] + " ";
-
-    p1ScoreDiv.appendChild(p);
-  }
-
-  p1Div.appendChild(p1ScoreDiv);
-
-  rowDiv.appendChild(p1Div);
-
-  let but = document.createElement("button");
-  but.innerHTML = "RESTART";
-  but.onclick = function() {
-    alert("Throw Better");
-    location.href = "game.html";
-  }
-
-  document.body.appendChild(but);
-}
-
-// Clears display for new round
-// round Current round being played
-function clearDisplay(round) {
-  // Reset the display
-  document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
-
-  // Changes throws back to '-'
-  for (let i = 1; i <= 5; i++) {
-    document.getElementById("p0axe".concat(i)).innerHTML = '-';
-    document.getElementById("p1axe".concat(i)).innerHTML = '-';
-  }
-}
-
-// Used for big axe round
-// p0 Player 0 object
-// p1 Player 1 object
-function bigAxe(p0, p1) {
-  alert("BIG AXE");
 }

@@ -6,7 +6,8 @@ let p0 = {
   scores: [], // array of player scores
   tot: [], // array of totals for each round
   name:"Name 1", // player name
-  throwNum: 0 // number of throws in a round
+  throwNum: 0, // number of throws in a round
+  roundsWon: 0 // number of rounds won
 };
 
 let p1 = {
@@ -14,7 +15,8 @@ let p1 = {
   scores: [], // array of player scores
   tot: [], // array of totals for each round
   name:"Name 2", // player name
-  throwNum: 0 // number of throws in a round
+  throwNum: 0, // number of throws in a round
+  roundsWon: 0 // number of rounds won
 };
 
 function start() {
