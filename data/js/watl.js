@@ -199,11 +199,11 @@ function addPoints(player, value, throwInc) {
     } else if (throwInc == 1 && player.throwNum > 0) {
     // Displays last value inputted
     document.getElementById(player.id + "ThrowCount").innerHTML =
-      "Throw: " + player.throwNum;
+      "Throw: " + (player.throwNum + 1);
     }
     // If no values inputted do not display anything
     else
-      document.getElementById(player.id + "ThrowCount").innerHTML = "Throws: ";
+      document.getElementById(player.id + "ThrowCount").innerHTML = "Throw: 1";
   // If not first value inputted
   } else {
     // Displays last value inputted
