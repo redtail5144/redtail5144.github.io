@@ -243,7 +243,6 @@ function updateGame(p0, p1) {
 // p0 Player 0 object
 // p1 Player 1 object
 function showEnd(p0, p1) {
-  /*
   // Clears game UI
   document.getElementById("game").style.display = "none";
 
@@ -263,7 +262,7 @@ function showEnd(p0, p1) {
   }
 
   document.body.appendChild(but);
-  */
+  /*
    // Clears game UI
   document.getElementById("game").style.display = "none";
 
@@ -374,7 +373,7 @@ function showEnd(p0, p1) {
     location.href = "game.html";
   }
 
-  document.body.appendChild(but);
+  document.body.appendChild(but); */
 }
 
 // Swaps two elements in UI
