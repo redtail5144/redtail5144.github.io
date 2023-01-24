@@ -4,7 +4,10 @@ let p0 = {
   scores: [], // array of player scores
   tot: 0, // array of totals for each round
   name:"Name 1", // player name
-  throwNum: 0 // number of throws in a round
+  throwNum: 0, // number of throws in a round
+  bullHit: 0, // Number of bulls hit
+  killHit: 0, // Number of kills hit
+  killAtmp: 0 // Number of kills attempted
 };
 
 let p1 = {
@@ -12,7 +15,10 @@ let p1 = {
   scores: [], // array of player scores
   tot: 0, // array of totals for each round
   name:"Name 2", // player name
-  throwNum: 0 // number of throws in a round
+  throwNum: 0, // number of throws in a round
+  bullHit: 0, // Number of bulls hit
+  killHit: 0, // Number of kills hit
+  killAtmp: 0 // Number of kills attempted
 };
 
 function start() {
@@ -106,8 +112,16 @@ function displayGame(p0, p1) {
 
 function targetClick(player, value) {
   if (player == "p0")
-    addPoints(p0, value, 1);
+    if (value == 'km') {
+      p0.killAtmp++;
+      addPoints(p0, 0, 1);
+    } else
+      addPoints(p0, value, 1);
     else
+    if (value == 'km') {
+      p1.killAtmp++;
+      addPoints(p1, 0, 1);
+    } else
       addPoints(p1, value, 1);
 
   updateGame(p0, p1);
@@ -118,6 +132,15 @@ function targetClick(player, value) {
 // value Value of button pressed
 // throwInc Used to increment throw count, 1 = standard 0.5 = doubles
 function addPoints(player, value, throwInc) {
+  // If kill hit, inc kill hit stat
+  if (value == 8) {
+    player.killHit++;
+    player.killAtmp++;
+  // If bull hit, inc bull hit stat
+  } else if (value == 6) {
+    player.bullHit++;
+  }
+
   // Checks if the undo button was pressed
   if (value == "undo") {
     // If next round button is there
@@ -128,75 +151,47 @@ function addPoints(player, value, throwInc) {
     // Makes sure there is something to undo
     if (player.scores.length != 0 && player.throwNum != 0) {
 
-    // Removes last element
-    let last = player.scores.pop();
-    player.tot -= last;
+      // Removes last element
+      let last = player.scores.pop();
+      player.tot -= last;
 
-    // Updates ui
-
-    // Checks if first value inputted
-    // throwInc != 1 used to check if doubles
-    if (player.throwNum % 1 == 0 & throwInc != 1) {
-      // Gets value currently displays and subtracts it from current throw
-      // Only used in doubles
-      let temp2 = parseInt(document.getElementById(player.id +
-        "a".concat(Math.ceil(player.throwNum))).innerHTML);
-      temp2 -= last;
-      document.getElementById(player.id +
-        "a".concat(Math.ceil(player.throwNum))).innerHTML = temp2;
-      // If not first value or not doubles
-      } else {
-            // Replaces value with '-'
-            document.getElementById(player.id +
-              "a".concat(Math.ceil(player.throwNum))).innerHTML = '-';
-          }
-          // Decrements number of throws
-          player.throwNum -= throwInc;
-        }
-  // For non undo inputs
-  } else {
-        // Makes sure 5 axes havn't been thrown
-        if (Math.floor(player.throwNum) <= 9) {
-          // Increments number of throws
-          player.throwNum += throwInc;
-
-          // Adds value to array
-          player.scores.push(value);
-
-          // Increases total
-          player.tot += value;
-
-          // Updates UI with score of current axe
-
-          // Checks if both team members have thrown or game is not doubles
-          if (player.throwNum % 1 == 0 && throwInc != 1) {
-            // Gets value displayed and adds value
-            let temp = parseInt(document.getElementById(player.id +
-              "a".concat(Math.ceil(player.throwNum))).innerHTML);
-            temp += value;
-            document.getElementById(player.id +
-              "a".concat(Math.ceil(player.throwNum))).innerHTML = temp;
-          // If no team member has thrown or not doubles
-          } else {
-            // Dispalys the value
-            document.getElementById(player.id +
-              "a".concat(Math.ceil(player.throwNum))).innerHTML = value;
-          }
-        }
+      // If undo kill, dec kill hit stat
+      if (last == 8) {
+        player.killHit--;
+        player.killAtmp--;
+      // If undo bull, dec bull hit stat
+      } else if (last == 6) {
+        player.bullHit--;
       }
 
-  // Shows last throw done
+      // Replaces value with '-'
+      document.getElementById(player.id +
+      "a".concat(Math.ceil(player.throwNum))).innerHTML = '-';
+      // Decrements number of throws
+      player.throwNum -= throwInc;
+    }
+  // For non undo inputs
+  } else {
+      // Makes sure 5 axes havn't been thrown
+      if (Math.floor(player.throwNum) <= 9) {
+      // Increments number of throws
+      player.throwNum += throwInc;
+
+      // Adds value to array
+      player.scores.push(value);
+
+      // Increases total
+      player.tot += value;
+
+      // Dispalys the value
+      document.getElementById(player.id +
+        "a".concat(Math.ceil(player.throwNum))).innerHTML = value;
+      }
+    }
 
   // Checks if first value inputted
   if (player.throwNum % 1 == 0) {
-    // Checks not doubles
-    if (player.throwNum > 0 & throwInc != 1) {
-      // Shows last 2 values inputted
-      document.getElementById(player.id + "ThrowCount").innerHTML =
-      "Throws: " + player.scores[player.scores.length - 2] + "," +
-      player.scores[player.scores.length - 1];
-    // If is not doubles and atleast 1 value inputted
-    } else if (throwInc == 1 && player.throwNum > 0) {
+    if (throwInc == 1 && player.throwNum > 0) {
     // Displays last value inputted
     document.getElementById(player.id + "ThrowCount").innerHTML =
       "Throw: " + (player.throwNum + 1);
@@ -205,10 +200,6 @@ function addPoints(player, value, throwInc) {
     else
       document.getElementById(player.id + "ThrowCount").innerHTML = "Throw: 1";
   // If not first value inputted
-  } else {
-    // Displays last value inputted
-    document.getElementById(player.id + "ThrowCount").innerHTML =
-      "Throws: " + player.scores[player.scores.length - 1];
   }
 
   // Updates round total
@@ -252,6 +243,18 @@ function showEnd(p0, p1) {
 
   let p = document.createElement("h1");
   p.innerHTML = p0.name + ": " + p0.tot + " | " + p1.name + ": " + p1.tot;
+  document.body.appendChild(p);
+
+  p = document.createElement("h2");
+  p.innerHTML = "Bulls hit: " + p0.name + ": " + p0.bullHit + " | " + p1.name + ": " + p1.bullHit;
+  document.body.appendChild(p);
+
+  p = document.createElement("h2");
+  p.innerHTML = "Kill attempted: " + p0.name + ": " + p0.killAtmp + " | " + p1.name + ": " + p1.killAtmp;
+  document.body.appendChild(p);
+
+  p = document.createElement("h2");
+  p.innerHTML = "Kill attempted: " + p0.name + ": " + p0.killHit + " | " + p1.name + ": " + p1.killHit;
   document.body.appendChild(p);
 
   let but = document.createElement("button");
