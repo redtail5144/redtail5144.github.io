@@ -198,7 +198,7 @@ function addPoints(player, value, throwInc) {
     }
     // If no values inputted do not display anything
     else
-      document.getElementById(player.id + "ThrowCount").innerHTML = "Throws: ";
+      document.getElementById(player.id + "ThrowCount").innerHTML = "Throw: 1";
   // If not first value inputted
   }
 
@@ -265,6 +265,118 @@ function showEnd(p0, p1) {
   }
 
   document.body.appendChild(but);
+  /*
+   // Clears game UI
+  document.getElementById("game").style.display = "none";
+
+  // Creates div for elements
+  var rowDiv = document.createElement("div");
+  rowDiv.id = "rowDiv";
+  rowDiv.classList.add("row");
+
+  document.body.appendChild(rowDiv);
+
+  //===============Player 0===============//
+  var p0Div = document.createElement("div");
+  p0Div.id = "p0Scores";
+  p0Div.classList.add("column");
+
+  var p0ScoreDiv = document.createElement("div");
+  p0ScoreDiv.className = "throws";
+
+  let h = document.createElement("h2");
+  h.innerHTML = p0.name;
+
+  p0Div.appendChild(h);
+
+  // Adds throws to screen
+  // Goes through each round
+  for (let i = 0; i < p0.tot.length; i++) {
+    // temp <p> for display throw
+    let p = document.createElement("p");
+    // makes sure it only displays current round
+    for (let j = 0; j < (p0.scores.length / p0.tot.length); j++)
+      p.innerHTML += p0.scores[(i * (p0.scores.length / p0.tot.length)) + j] + " ";
+
+    p0ScoreDiv.appendChild(p);
+  }
+
+  p0Div.appendChild(p0ScoreDiv);
+
+  rowDiv.appendChild(p0Div);
+
+  //================Totals================//
+  var mDiv = document.createElement("div");
+  mDiv.id = "endTots";
+  mDiv.classList.add("column");
+
+  h = document.createElement("h2");
+  h.innerHTML = "Round Totals";
+
+  mDiv.appendChild(h);
+
+  // Displays both players totals against each other
+  for (let i = 0; i < p0.tot.length; i++) {
+    let p = document.createElement("p");
+    p.innerHTML = p0.tot[i] + " : " + p1.tot[i];
+    mDiv.appendChild(p);
+  }
+
+  // Used for overall game score
+  let t1GTot = 0;
+  let t2GTot = 0
+
+  for (let i of p0.tot) {
+    t1GTot += i;
+  }
+
+  for (let i of p1.tot) {
+    t2GTot += i;
+  }
+
+  temp = document.createElement("p");
+  temp.innerHTML = t1GTot + ":" + t2GTot;
+  mDiv.appendChild(temp);
+
+  rowDiv.appendChild(mDiv);
+
+  //===============Player 2===============//
+  var p1Div = document.createElement("div");
+  p1Div.id = "p1Scores";
+  p1Div.classList.add("column");
+
+  var p1ScoreDiv = document.createElement("div");
+  p1ScoreDiv.className = "throws";
+
+  h = document.createElement("h2");
+  h.innerHTML = p1.name;
+
+  p1Div.appendChild(h);
+
+  // Adds throws to screen
+  // Goes through each round
+  for (let i = 0; i < p1.tot.length; i++) {
+    // Temp <p> for displaying throws
+    let p = document.createElement("p");
+    // Makes sure only current round is displayed
+    for (let j = 0; j < (p1.scores.length / p1.tot.length); j++)
+      p.innerHTML += p1.scores[(i * (p1.scores.length / p1.tot.length)) + j] + " ";
+
+    p1ScoreDiv.appendChild(p);
+  }
+
+  p1Div.appendChild(p1ScoreDiv);
+
+  rowDiv.appendChild(p1Div);
+
+  let but = document.createElement("button");
+  but.innerHTML = "RESTART";
+  but.onclick = function() {
+    alert("Throw Better");
+    location.href = "game.html";
+  }
+
+  document.body.appendChild(but); */
 }
 
 // Swaps two elements in UI
