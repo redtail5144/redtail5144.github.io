@@ -250,11 +250,11 @@ function showEnd(p0, p1) {
   document.body.appendChild(p);
 
   p = document.createElement("h2");
-  p.innerHTML = "Kill attempted: " + p0.name + ": " + p0.killAtmp + " | " + p1.name + ": " + p1.killAtmp;
+  p.innerHTML = "Kill(s) Sttempted: " + p0.name + ": " + p0.killAtmp + " | " + p1.name + ": " + p1.killAtmp;
   document.body.appendChild(p);
 
   p = document.createElement("h2");
-  p.innerHTML = "Kill attempted: " + p0.name + ": " + p0.killHit + " | " + p1.name + ": " + p1.killHit;
+  p.innerHTML = "Kill(s) Hit: " + p0.name + ": " + p0.killHit + " | " + p1.name + ": " + p1.killHit;
   document.body.appendChild(p);
 
   let but = document.createElement("button");
