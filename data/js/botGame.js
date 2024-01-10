@@ -38,9 +38,22 @@ function botSetup(name, win) {
   var black, red, blue, cCall, cHit;
 
   switch (name) {
+<<<<<<< HEAD
     case "Rander IATC 2023":
       black = (147 / 155) * 100;
       red = (8 /155) * 100;
+=======
+    case "That Bastard Guy":
+      black = 85.3;
+      red = 12.3;
+      blue = 0;
+      cCall = 91.4;
+      cHit = 37.8;
+      break;
+    case "Spenny":
+      black = 85.1;
+      red = 12.4;
+>>>>>>> 06111ea91780768b6bfe309622fd471ffcb4ac0a
       blue = 0;
       cCall = 75.7;
       cHit = 50;

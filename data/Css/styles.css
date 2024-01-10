@@ -84,7 +84,6 @@
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  border: 2px dashed red;
 }
 
 #hatStats, #bigStats {
@@ -125,7 +124,6 @@
   padding: 1em;
   height: 5%;
   width: 33%;
-  border: solid 1px red;
   overflow: hidden;
 }
 
@@ -135,7 +133,6 @@
   padding: 0.5em;
   height: 100%;
   width: 33%;
-  border: solid 1px red;
   overflow: hidden;
 }
 
@@ -143,7 +140,6 @@
   padding: 1em;
   height: 100%;
   width: 33%;
-  border: solid 1px red;
   overflow: hidden;
 }
 
