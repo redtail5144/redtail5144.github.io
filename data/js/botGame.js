@@ -38,6 +38,11 @@ function botSetup(name, win) {
   var black, red, blue, cCall, cHit;
 
   switch (name) {
+<<<<<<< HEAD
+    case "Rander IATC 2023":
+      black = (147 / 155) * 100;
+      red = (8 /155) * 100;
+=======
     case "That Bastard Guy":
       black = 85.3;
       red = 12.3;
@@ -48,37 +53,31 @@ function botSetup(name, win) {
     case "Spenny":
       black = 85.1;
       red = 12.4;
+>>>>>>> 06111ea91780768b6bfe309622fd471ffcb4ac0a
       blue = 0;
-      cCall = 93.9;
-      cHit = 40.3;
+      cCall = 75.7;
+      cHit = 50;
       break;
-    case "Marksman":
-      black = 86.5;
-      red = 12.4;
+    case "Canexican IATC 2023":
+      black = (215 / 222) * 100;
+      red = (7 / 222) * 100;
       blue = 0;
-      cCall = 24.3;
-      cHit = 31.5;
+      cCall = 81.1;
+      cHit = 41.9;
       break;
-    case "Rander":
-      black = 86;
-      red = 9;
-      blue = 0.3;
-      cCall = 98;
-      cHit = 31.1;
-      break;
-    case "Battle Axe":
-      black = 79.7;
-      red = 18.8;
+    case "Daddy IATC 2023":
+      black = (147 / 158) * 100;
+      red = (9 / 158) * 100;
       blue = 0;
-      cCall = 18.3;
-      cHit = 25.6;
+      cCall = 72.2;
+      cHit = 30.8;
       break;
-    case "Coltron":
-      black = 77.2;
-      red = 21.2;
+    case "Vail Cook IATC 2023":
+      black = (222 / 243) * 100;
+      red = (21 / 234) * 100;
       blue = 0;
-      cCall = 66.4;
-      cHit = 27;
+      cCall = 70.9;
+      cHit = 41;
       break;
   }
 
@@ -179,23 +178,29 @@ function targetClick(value) {
 function botTurn() {
   let ac = Math.random() * 100;
 
+  console.log("AI SCORE: " + bTot[round]);
+  console.log("Player Score: " + pTot[round]);
+
   // If final throw
   if (throwNum == 5 || !flag) {
     // If bot is playing to win
+    // Or if the score is even
     if (p2w) {
+      // Difference in player and bot scores
+      let pDiff = pTot[round] - bTot[round];
+
       // If bot needs clutch to win
-      // Or if it is out of reach
-      // Throw Clutch
-      if (pTot[round] - bTot[round] >= 5) {
-        let temp = (round * 5) + (throwNum - 1);
-        if (pTot[round] - pScores[temp] == bTot[round])
-          return botPoints();
-
+      // Or if scores are tied
+      // Throw for clutch
+      if (pDiff >= 6 || pDiff == 0) {
+        console.log("one");
         return botClutchThrow();
+      // If bot needs bull to win or tie
+      // Throw points
+      } else if (pDiff <= 5) {
+        console.log("two");
+        return botPoints();
       }
-
-      // Other wise just go for points
-      else return botPoints();
 
     // If bot is not playing to win
     // See if it wants to go clutch
@@ -360,37 +365,32 @@ function chooseBot() {
   // Choose which bot to play
   var ai = document.createElement("select");
   ai.setAttribute('id', "ai");
-  // Spenny
+  // Rander IATC 2023
   var op = new Option();
-  op.value = "Spenny";
-  op.text = "Spenny";
+  op.value = "Rander IATC 2023";
+  op.text = "Rander IATC 2023";
   ai.options.add(op);
-  // Marksman
+  // Canexican IATC 2023
   var op = new Option();
-  op.value = "Marksman";
-  op.text = "Marksman";
+  op.value = "Canexican IATC 2023";
+  op.text = "Canexican IATC 2023";
   ai.options.add(op);
-  // Rander
+  // Canexican IATC 2023
   var op = new Option();
-  op.value = "Rander";
-  op.text = "Rander";
+  op.value = "Daddy IATC 2023";
+  op.text = "Daddy IATC 2023";
   ai.options.add(op);
-  // Battle Axe
+  // Vail Cook IATC 2023
   var op = new Option();
-  op.value = "Battle Axe";
-  op.text = "Battle Axe";
-  ai.options.add(op);
-  // Coltron
-  var op = new Option();
-  op.value = "Coltron";
-  op.text = "Coltron";
+  op.value = "Vail Cook IATC 2023";
+  op.text = "Vail Cook IATC 2023";
   ai.options.add(op);
   // Custom Option
   /*var op = new Option();
   op.value = "Custom";
   op.text = "Custom(Currently Does Nothing)";
   ai.options.add(op);*/
-  ai.value = "Rander"; // Default
+  ai.value = "Rander IATC 2023"; // Default
   var aiLab = document.createElement("Label");
   aiLab.htmlFor = "text";
   aiLab.innerHTML = "<br><b>Opponent: </b>";
