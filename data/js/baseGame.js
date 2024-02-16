@@ -385,11 +385,14 @@ function showEnd(p0, p1) {
 
   rowDiv.appendChild(p1Div);
 
+	// Gets current page for restart button
+  let urlTemp = window.location.href;
+  
   let but = document.createElement("button");
   but.innerHTML = "RESTART";
   but.onclick = function() {
     alert("Throw Better");
-    location.href = "game.html";
+    location.href = urlTemp;
   }
 
   document.body.appendChild(but);

@@ -4,6 +4,7 @@ var round = 0; // current round
 let p0 = {
   id: "p0", // player id
   scores: [], // array of player scores
+  baScores: [], // array of player big axe scores
   tot: [], // array of totals for each round
   name:"Name 1", // player name
   throwNum: 0, // number of throws in a round
@@ -13,6 +14,7 @@ let p0 = {
 let p1 = {
   id: "p1", // player id
   scores: [], // array of player scores
+  baScores: [], // array of player big axe scores
   tot: [], // array of totals for each round
   name:"Name 2", // player name
   throwNum: 0, // number of throws in a round
