@@ -87,7 +87,7 @@ function inc(val) {
         }
 
       throws++;
-      document.getElementById("throwNum").innerHTML = "Throw " + throws + "/420";
+      document.getElementById("throwNum").innerHTML = "Throw " + throws + "/75";
     } else {
       // Big Vals
       switch (val) {
@@ -142,7 +142,7 @@ function dec(val) {
       }
 
     throws--;
-    document.getElementById("throwNum").innerHTML = "Throw " + throws + "/420";
+    document.getElementById("throwNum").innerHTML = "Throw " + throws + "/75";
 
     // If any stats are below 0, sets them to zero
     for (let i = 0; i < stats.length; i++)
@@ -180,12 +180,12 @@ function dec(val) {
 }
 
 // Checks to see if throws are completed
-// 420 Hatchet throws or 15 Big Axe throws
+// 75 Hatchet throws or 15 Big Axe throws
 function checkDone() {
   if (!big) {
-    // If 420 throws have been made
+    // If 75 throws have been made
     // Prompt user to throw big axe
-    if (throws == 420) {
+    if (throws == 75) {
       // If yes enable big axe mode
       window.setTimeout(throwBig(), 1);
     }
