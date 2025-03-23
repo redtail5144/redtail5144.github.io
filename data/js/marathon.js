@@ -28,7 +28,7 @@ var redVal = 3;
 var blueVal = 1;
 var missVal = 0;
 // Total amount of throws
-var games = 3;
+var games = 28;
 // Number of throws
 var throws = 0;
 // Amount of total throws
