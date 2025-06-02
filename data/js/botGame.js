@@ -406,9 +406,6 @@ function chooseBot() {
     botSetup(ai.value, document.getElementById("p2wBut").checked);
   }
 
-  // <p> for styling
-  var para = document.createElement("p");
-
   // Adds everything to the screen
   form.appendChild(tit);
   form.appendChild(nLab);
