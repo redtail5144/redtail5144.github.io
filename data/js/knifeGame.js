@@ -1,5 +1,4 @@
 //Boolean bigStick = false; // Flag for if playing big axe
-var maxThrows = 0;
 
 // Initalizes the game
 // n1 Text for player 1 name entry
@@ -7,15 +6,13 @@ var maxThrows = 0;
 // p0 Player 0 object
 // p1 Player 1 object
 // maxRound Maximum number of rounds in a match
-function init(n1, n2, p0, p1, maxRound, roundThrowCap) {
+function init(n1, n2, p0, p1, maxRound) {
   p0.scores = []; // Sets scores to empty array
   p1.scores = []; // Sets scores to empty array
   p0.tot = [0,0,0];
   p1.tot = [0,0,0];
   p0.roundsWon = 0;
   p1.roundsWon = 0;
-console.log("roundThrowCap = ", roundThrowCap);
-	maxThrows = roundThrowCap;
   getNames(n1, n2, p0, p1); // Gets the names of players
   // Displays the round
   document.getElementById("roundDisplay").innerHTML = "Round " + (1);
@@ -135,7 +132,7 @@ function addPoints(player, value, throwInc) {
   // For non undo inputs
   } else {
         // Makes sure 5 axes havn't been thrown
-        if (Math.floor(player.throwNum) <= maxThrows-1) {
+        if (Math.floor(player.throwNum) <= 5) {
           // Increments number of throws
           player.throwNum += throwInc;
 
@@ -204,7 +201,7 @@ function updateGame(p0,p1) {
 
   // Create next round button if both players threw 5 times
   // TODO: Fix This / Maybe move to new function
-  if (p0.throwNum == maxThrows && p1.throwNum == maxThrows) {
+  if (p0.throwNum == 6 && p1.throwNum == 6) {
     let temp = document.getElementById("nextBut");
     if (temp == null) {
       let but = document.createElement("button");
@@ -354,7 +351,7 @@ function showEnd(p0, p1) {
   }
 
   temp = document.createElement("p");
-  temp.innerHTML = t1GTot + " : " + t2GTot;
+  temp.innerHTML = t1GTot + ":" + t2GTot;
   mDiv.appendChild(temp);
 
   rowDiv.appendChild(mDiv);
@@ -405,7 +402,7 @@ function clearDisplay(round) {
   document.getElementById("roundDisplay").innerHTML = "Round " + (round + 1);
 
   // Changes throws back to '-'
-  for (let i = 1; i <= maxThrows; i++) {
+  for (let i = 1; i <= 5; i++) {
     document.getElementById("p0axe".concat(i)).innerHTML = '-';
     document.getElementById("p1axe".concat(i)).innerHTML = '-';
   }

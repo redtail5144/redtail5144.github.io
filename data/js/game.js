@@ -19,8 +19,9 @@ let p1 = {
   roundsWon: 0 // number of rounds won
 };
 
-function start() {
-  init("Player 1 Name: " , "Player 2 Name: ", p0, p1, 3);
+function start(maxThrows) {
+	console.log("maxThrows = ", maxThrows);
+  init("Player 1 Name: " , "Player 2 Name: ", p0, p1, 3, maxThrows);
 }
 
 function targetClick(player, value) {
