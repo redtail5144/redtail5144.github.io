@@ -392,7 +392,8 @@ function showEnd(p0, p1) {
   but.innerHTML = "RESTART";
   but.onclick = function() {
     alert("Throw Better");
-    location.href = "game.html";
+    //location.href = "game.html";
+	location.reload();
   }
 
   document.body.appendChild(but);
