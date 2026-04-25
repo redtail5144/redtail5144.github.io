@@ -21,7 +21,7 @@ let p1 = {
 
 function start(maxThrows) {
 	console.log("maxThrows = ", maxThrows);
-  init("Player 1 Name: " , "Player 2 Name: ", p0, p1, 3, maxThrows);
+  init("Player 1 Name: " , "Player 2 Name: ", p0, p1, 7, maxThrows);
 }
 
 function targetClick(player, value) {
